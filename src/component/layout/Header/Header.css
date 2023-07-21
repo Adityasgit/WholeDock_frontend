@@ -1,0 +1,310 @@
+.banner {
+  background-image: linear-gradient(to right, rgb(70, 20, 10), rgb(10, 30, 60));
+  max-width: 100%;
+  height: 100vmin;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  color: white;
+  background-position: fixed;
+}
+.banner > p {
+  display: inline-block;
+  width: fit-content;
+  margin: 2vmax auto;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-size: 4vmin;
+  letter-spacing: 1vmin;
+  font-weight: bold;
+}
+.banner > h2 {
+  font-size: 6vmin;
+  color: #ddfcff;
+}
+.banner > a {
+  margin: 3vmax;
+}
+.banner > a > button {
+  background-color: transparent;
+  color: white;
+  padding: 6px;
+  border: 1px solid white;
+  border-radius: 2px;
+  margin-top: 2vmax;
+  transition: all linear 0.3s;
+  font-size: 4vmin;
+  cursor: pointer;
+}
+.banner > a > button:hover {
+  background-color: whitesmoke;
+  color: black;
+  border: black;
+}
+.banner::after {
+  content: "";
+  width: 100vw;
+  height: 100vmin;
+  background-color: white;
+  position: absolute;
+  top: 0;
+  left: 0;
+  clip-path: polygon(64% 0, 100% 1%, 80% 53%, 100% 100%, 0 100%, 100% 60%);
+  min-width: 100vw;
+}
+@media screen and (max-width: 1110px) and (min-width: 481px) {
+  .banner::after {
+    clip-path: polygon(
+      54% 11%,
+      90% 31%,
+      100% 0,
+      100% 70%,
+      100% 100%,
+      0 100%,
+      100% 83%,
+      100% 17%,
+      23% 18%,
+      29% 33%
+    );
+  }
+}
+@media screen and (max-width: 480px) {
+  .banner::after {
+    clip-path: polygon(
+      55% 0,
+      91% 22%,
+      100% 0,
+      100% 70%,
+      100% 100%,
+      0 100%,
+      100% 74%,
+      100% 13%,
+      20% 7%,
+      9% 18%
+    );
+  }
+}
+
+#navbar {
+  position: fixed;
+  color: white;
+  background-image: linear-gradient(to right, rgb(70, 20, 10), rgb(10, 30, 60));
+  width: 100vw;
+  max-height: 6vmax;
+  height: auto;
+  max-width: 100vw;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}
+.mid-navbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin: 0.2rem 3vmax;
+  font-size: 2vmax;
+  padding: 1vmin;
+  margin-top: 0;
+  padding-top: 0;
+}
+.mid-navbar .items {
+  margin: 2vmax;
+  transition: all 0.3s linear;
+  font-synthesis: style;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}
+.mid-navbar .items p {
+  position: relative;
+  top: -27px;
+  left: -27px;
+}
+.mid-navbar .items:hover {
+  color: #ddfcff;
+  cursor: pointer;
+  transform: translateY(-4px);
+}
+.mid-navbar .items:active {
+  color: #ddfcff;
+  transform: translateY(-5px);
+}
+.left-navbar {
+  display: flex;
+  flex-direction: row;
+  margin: 2vmin;
+  padding: 1rem;
+  border-radius: 10%;
+  align-items: center;
+  margin-top: 0;
+  min-width: max-content;
+  max-height: min-content;
+  border-right: 2px solid white;
+}
+.left-navbar img {
+  width: 4vmax;
+}
+.left-navbar .items {
+  margin-right: 1vmin;
+}
+.left-navbar {
+  margin-top: 1vmin;
+}
+.right-navbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: baseline;
+  width: 100%;
+  margin-left: 2vmin;
+  position: relative;
+  right: -13vmax;
+}
+.right-navbar .items {
+  align-items: center;
+  margin: 2vmin;
+}
+.right-navbar .items input {
+  font-size: 1.3vmax;
+  background-color: transparent;
+  color: white;
+  background-color: transparent;
+  padding: 8px;
+  border-radius: 5px;
+  width: calc(initial+5px);
+}
+
+@media screen and (max-width: 480px) {
+  #navbar {
+    flex-direction: column;
+    min-height: 100vh;
+    width: 80vw;
+    padding: 5vmax;
+    border-right: 2px solid white;
+    border-bottom: 2px solid white;
+    border-top: 2px solid white;
+    margin-top: 1px;
+    animation: navani 0.2s ease both;
+    overflow: hidden;
+  }
+  @keyframes navani {
+    from {
+      width: 50%;
+    }
+    to {
+      width: 80vw;
+    }
+  }
+  .mid-navbar {
+    flex-direction: column;
+  }
+  .mid-navbar .items {
+    margin: 2vmax;
+    font-size: 3.5vmax;
+  }
+  .mid-navbar .items p {
+    position: relative;
+    top: -30px;
+    left: -50px;
+  }
+  .mid-navbar .items:hover {
+    color: #ddfcff;
+    cursor: pointer;
+    transform: translateX(3vmax);
+  }
+  .mid-navbar .items:active {
+    color: #ddfcff;
+    transform: translateX(3vmin);
+    transform: scale(2);
+  }
+  .left-navbar {
+    margin-right: 0;
+    padding-right: 0;
+    width: 19vmax;
+  }
+  .left-navbar .items {
+    font-size: 4vmax;
+  }
+  .right-navbar {
+    justify-content: flex-start;
+    right: 0;
+    margin-left: 0;
+    padding-left: 0;
+  }
+  .right-navbar .items {
+    margin: 3vmax;
+    margin-left: 1vmax;
+  }
+  .right-navbar .items input {
+    font-size: 3vmax;
+  }
+}
+.burger {
+  margin: 1vmax;
+  position: fixed;
+}
+.burger button {
+  transition: all 0.2s linear;
+  font-size: 5vmax;
+  color: white;
+  background: transparent;
+  border: none;
+}
+.searchopen {
+  position: fixed;
+  background-color: whitesmoke;
+  border: 1px ridge silver;
+  z-index: 100;
+  padding: 0.2vmax 1.6vmax;
+  border-bottom-right-radius: 1vmin;
+  border-bottom-left-radius: 1vmin;
+  left: 2vw;
+  transition: all 0.2s linear;
+  text-align: center;
+  border-top: none;
+}
+.searchopen:hover {
+  background-color: white;
+  border: 1px ridge silver;
+  border-top: none;
+}
+.search {
+  overflow: hidden;
+  height: 5vmax;
+  width: 28vmax;
+  background-color: whitesmoke;
+  box-shadow: 0px 0px 1px silver;
+  left: 2vw;
+  top: 6vmax;
+  position: fixed;
+  z-index: 11;
+  animation: searchani 0.2s linear both;
+  border-bottom-right-radius: 8vmin;
+}
+@keyframes searchani {
+  from {
+    height: 3vmax;
+  }
+  to {
+    height: 5vmax;
+  }
+}
+.searchBox {
+  text-align: center;
+  margin-top: 5%;
+}
+
+.inp2 {
+  height: 2.5vmax;
+  background-color: white;
+  border: none;
+  outline: none;
+  margin-left: 0.5vmin;
+  box-shadow: 0 0 0.5px black;
+  padding-bottom: 2px;
+}
+.inp2:active {
+  background-color: whitesmoke;
+}

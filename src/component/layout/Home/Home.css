@@ -1,0 +1,103 @@
+.featured {
+  text-align: center;
+  margin-top: 8vmin;
+  font-size: 3.5vmax;
+  width: fit-content;
+  border-bottom: 1px solid black;
+  padding: 2vmin;
+  margin: auto;
+}
+
+.productcard {
+  width: 16vmax;
+  height: 32vmax;
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: rgb(48, 48, 48);
+  margin: 2vmax;
+  transition: all 0.5s;
+  padding-bottom: 0.5vmax;
+  font-family: "Roboto";
+}
+.productcard > div > img {
+  width: 16vmax;
+}
+.productcard > .img {
+  width: 16vmax;
+  overflow: scroll;
+  max-height: 21vmax;
+  border-bottom: 1px groove silver;
+}
+.pc-name-qty {
+  margin-top: 1vmax;
+}
+.pc-name {
+  display: inline-block;
+  width: 70%;
+  height: 3vmax;
+  max-width: 70%;
+  overflow: hidden;
+  max-height: fit-content;
+  font-size: 1.2vmax;
+  font-weight: bolder;
+  padding-left: 1vmin;
+}
+.pc-qty {
+  font-size: 1vmax;
+  text-align: center;
+  display: inline-block;
+  width: 29%;
+  max-width: 29%;
+  color: rgba(47, 47, 47, 0.884);
+}
+.productcard:hover {
+  box-shadow: 0 0 5px rgba(15, 15, 15, 0.26);
+  transform: translateY(-1vmax);
+}
+.product-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin: 2vmax auto;
+  width: 80vw;
+  justify-content: center;
+}
+.numrev {
+  position: relative;
+  top: -3.5vmin;
+  left: 21vmin;
+  font-size: 1vmax;
+  width: fit-content;
+  color: rgb(48, 48, 48);
+}
+@media screen and (max-width: 480px) {
+  .product-container {
+    margin: 0 auto;
+    width: 100vw;
+  }
+  .productcard {
+    width: 20vmax;
+    height: 38vmax;
+    margin: 2vmax auto;
+  }
+  .productcard > img {
+    width: 20vmax;
+  }
+  .discount-box {
+    width: 9vmax;
+  }
+}
+.discount-box {
+  position: relative;
+  top: -15vmax;
+  left: -1vmax;
+  width: 7vmax;
+  padding: auto;
+  border-top-right-radius: 1vmin;
+  border-bottom-right-radius: 1vmin;
+  color: white;
+  display: inline-block;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.676);
+}

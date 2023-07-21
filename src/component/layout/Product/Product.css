@@ -1,0 +1,316 @@
+.product-details {
+  width: 100vw;
+  display: flex;
+  height: 100vh;
+  flex-direction: row;
+  padding: 5vmax;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.product-details > div {
+  width: 50%;
+  align-items: center;
+  text-align: center;
+  margin-top: 8vmax;
+}
+.product-details > div:last-child {
+  display: flex;
+  width: 50%;
+  height: 85%;
+  align-items: flex-start;
+  text-align: center;
+  margin-top: 0;
+  justify-content: space-around;
+  flex-direction: column;
+}
+.CarouselImage {
+  width: 22vmax;
+}
+.detail-1 {
+  width: fit-content;
+}
+.detail-1 > h2 {
+  display: inline-block;
+  width: fit-content;
+  font-size: 3vmax;
+  margin-right: 1vmax;
+  color: rgb(45, 45, 45);
+}
+.detail-1 > h2 > p {
+  margin-left: 2vmax;
+  font-size: 2vmax;
+  display: inline-block;
+  color: rgba(28, 27, 27, 0.684);
+}
+.detail-1-1 {
+  font-size: 2vmin;
+  font-style: oblique;
+  color: rgba(47, 47, 47, 0.59);
+}
+.detail-2 {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  align-content: center;
+  padding: 2vmin;
+  width: 70%;
+  border-top: 1px solid silver;
+  border-bottom: 1px solid silver;
+}
+.detail-2 > span {
+  font-size: 1vmax;
+  color: rgba(0, 0, 0, 0.54);
+}
+.detail-3 {
+  text-align: left;
+}
+.detail-3 > h1 {
+  margin: 2vmin;
+}
+.detail-3 > h1 > span {
+  color: rgba(51, 50, 50, 0.843);
+  font-weight: lighter;
+  font-size: 1.4vmax;
+}
+.detail-3-1 {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-left: 3vmin;
+}
+.detail-3-1-1 > button {
+  border: none;
+  background-color: rgba(0, 0, 0, 0.616);
+  cursor: pointer;
+  color: white;
+  padding: 0.5vmax;
+  transition: all 0.5s;
+}
+.detail-3-1-1 > button:hover {
+  background-color: rgba(0, 0, 0, 0.767);
+}
+.detail-3-1-1 > input {
+  border: none;
+  padding: 0.5vmax;
+  width: 2vmax;
+  text-align: center;
+  outline: none;
+  color: rgba(0, 0, 0, 0.74);
+  font: 400 0.8vmax "Roboto";
+}
+.detail-3-1 > button:last-child {
+  border: none;
+  cursor: pointer;
+  color: white;
+  transition: all 0.3s;
+  font: 500 0.7vmax;
+  border-radius: 20px;
+  padding: 0.5vmax 2vmax;
+  margin: 1vmax;
+  outline: none;
+  background-color: darkred;
+}
+.detail-3-1 > button:last-child:hover {
+  background-color: rgb(7, 7, 80);
+}
+.detail-3 > p {
+  border-top: 1px solid rgba(0, 0, 0, 0.205);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.205);
+  padding: 1vmax 0;
+  color: rgba(0, 0, 0, 0.651);
+  font: 400 1vmax "Roboto";
+  margin: 1vmax 0;
+  width: 100%;
+}
+.submitReview {
+  border: none;
+  background-color: rgb(7, 7, 80);
+  font: 500 0.9vmax "Roboto";
+  border-radius: 20px;
+  padding: 0.6vmax 2vmax;
+  margin: 1vmax 0;
+  color: white;
+  cursor: pointer;
+  transition: all 0.5s;
+  outline: none;
+}
+.submitReview:hover {
+  background-color: darkred;
+  transform: scale(1.1);
+}
+
+fieldset {
+  width: 80vw;
+  max-width: 80vw;
+  overflow: scroll;
+  margin: 2vmax auto;
+  border-radius: 1vmax;
+  padding: 0.6vmax 3vmax;
+}
+.description {
+  box-shadow: 0px 0px 1px silver;
+  padding: 1vmax;
+  max-width: 80vw;
+  min-height: 15vmax;
+  max-height: 15vmax;
+  overflow-wrap: break-word;
+  overflow-y: scroll;
+}
+.description::-webkit-scrollbar {
+  width: 2vmax;
+  display: block;
+  height: 2vmax;
+}
+.des {
+  font-size: 2vmax;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}
+fieldset > h4 {
+  margin: 2vmax;
+  font-weight: 300;
+}
+
+@media (max-width: 600px) {
+  .product-details {
+    flex-direction: column;
+    padding: 0;
+  }
+  .product-details > div {
+    width: 100%;
+  }
+  .CarouselImage {
+    width: 28vmax;
+  }
+  .detail-1,
+  .detail-2,
+  .detail-3 {
+    width: 100%;
+  }
+  .product-details > div:last-child {
+    width: 80%;
+  }
+  .submitReview {
+    font-size: 2vmax;
+  }
+}
+.reviews {
+  width: 80vw;
+  padding: 2vmax;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+}
+.re {
+  color: rgba(26, 25, 25, 0.52);
+  text-align: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+  padding: 1vmax;
+  font: 500 3vmax sans-serif;
+  width: 30%;
+  margin: 2vmax auto;
+  margin-top: 4vmax;
+}
+.rc {
+  flex-shrink: none;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(56, 56, 56, 0.116);
+  width: 30vmax;
+  margin: 1vmax;
+  padding: 3vmax;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-overflow: clip;
+  overflow-x: scroll;
+  overflow-wrap: break-word;
+  height: fit-content;
+  max-height: fit-content;
+}
+.rc .cmt {
+  font-style: italic;
+  color: #1a1a1aca;
+  overflow: hidden;
+  max-width: 99%;
+  width: 98%;
+  max-height: fit-content;
+}
+.rc > img {
+  width: 5vmax;
+}
+.noreview {
+  width: fit-content;
+  margin: 0;
+  height: 20vmax;
+  font-size: larger;
+  text-align: center;
+}
+.allp {
+  display: flex;
+  flex-direction: row;
+  width: 100vw;
+  height: fit-content;
+  min-height: 100vh;
+  background-color: #f1f3f6;
+  justify-content: space-between;
+}
+.filterbar {
+  display: flex;
+  width: 19%;
+  background-color: white;
+  box-shadow: 0 0 3px rgba(192, 192, 192, 0.753);
+  border-radius: 0.2vmin;
+  margin-top: 7vmax;
+  flex-direction: column;
+}
+.pricefilter {
+  margin: 1vmax;
+  padding: 1vmin;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+.main {
+  width: 80%;
+  box-shadow: 0 0 3px rgba(192, 192, 192, 0.753);
+  border-radius: 0.2vmin;
+  background-color: white;
+  margin-top: 7vmax;
+}
+.pros {
+  display: flex;
+  flex-wrap: wrap;
+}
+.sortline {
+  display: flex;
+  flex-direction: row;
+  margin: 2vmax;
+}
+.sortline .item {
+  padding: 0.6vmax 1vmax;
+  cursor: pointer;
+  transition: all 0.3s linear;
+}
+
+.active {
+  color: blue;
+  border-bottom: 1px solid blue;
+}
+.category {
+  border-radius: 12px;
+  border-left: #f1f3f6;
+}
+.categories {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  margin-left: 2vmax;
+}
+.categories > div {
+  transition: all 0.3s linear;
+  color: gray;
+  cursor: pointer;
+  margin: 0.6vmax;
+}
