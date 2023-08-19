@@ -306,11 +306,27 @@ fieldset > h4 {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  margin-left: 2vmax;
 }
-.categories > div {
+.categories > div,
+.gender > div {
   transition: all 0.3s linear;
   color: gray;
+  cursor: pointer;
+  font-size: medium;
+  margin: 0.6vmax;
+}
+.ratingfilter {
+  color: rgb(103, 80, 164);
+}
+.ratingfilter > div > div {
+  color: grey;
+  margin: 0.6vmax;
+}
+.ratingfilter label {
+  margin-left: 1.5vmin;
+}
+.company div {
+  color: grey;
   cursor: pointer;
   margin: 0.6vmax;
 }

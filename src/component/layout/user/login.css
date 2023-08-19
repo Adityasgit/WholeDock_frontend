@@ -1,0 +1,256 @@
+.changeTab > div {
+  width: 100%;
+  height: 100%;
+  margin: 2vmax;
+  padding: 1vmin;
+  cursor: pointer;
+  font-size: large;
+}
+
+.box {
+  width: 30vmax;
+  height: 35vmax;
+  border-radius: 5vmin;
+  background-color: white;
+  box-shadow: 0 0 3px silver;
+  overflow: hidden;
+  transition: all 0.5s ease;
+}
+.logintab,
+.signuptab {
+  transition: all 0.6s linear;
+  overflow: hidden;
+}
+
+.absolute {
+  position: absolute;
+  width: 30% !important;
+  border-bottom: 2px solid rgb(29, 29, 112);
+  transition: all 0.2s linear;
+}
+.slidein {
+  animation: slidein 0.2s linear;
+}
+@keyframes slidein {
+  0% {
+    transform: scale(0.8);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.opa {
+  animation: opa 1s ease;
+}
+@keyframes opa {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.rtl {
+  animation: ltr 0.8s linear;
+}
+@keyframes ltr {
+  0% {
+    transform: translateX(-100vmax);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+.up {
+  animation: up 1s ease-in-out;
+}
+@keyframes up {
+  0% {
+    transform: translateY(100vmax);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+.loginform,
+.signupform {
+  display: flex;
+  width: 80%;
+  height: 80%;
+  margin: auto;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+}
+.signupform {
+  height: 90%;
+}
+.loginform > div,
+.signupform > div {
+  margin: 1vmax;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+.signupform > div {
+  margin: 0.7vmax;
+}
+.loginform > div > input,
+.signupform > div > input {
+  padding: 1vmax 4vmax;
+  padding-right: 1vmax;
+  width: 100%;
+  border: 2px solid rgba(0, 0, 0, 0.364);
+  border-radius: 4px;
+  font-weight: 300;
+  outline: none;
+}
+.loginform > div > svg,
+.signupform > div > svg {
+  position: absolute;
+  left: 4vmax;
+  font-size: 1.6vmax;
+}
+@keyframes pop {
+  0% {
+    transform: scale(0.8);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.Link {
+  font: 300 1.3vmax gray;
+  color: grey;
+  align-self: flex-end;
+  margin-bottom: 2vmax;
+}
+.Link:hover {
+  color: rgb(78, 55, 255);
+}
+button {
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 12px 30px;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase;
+  transition: transform 0.2s ease;
+}
+
+/* CSS */
+.button-30 {
+  align-items: center;
+  appearance: none;
+  background-color: #fcfcfd;
+  border-radius: 4px;
+  border-width: 0;
+  box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,
+    rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #d6d6e7 0 -3px 0 inset;
+  box-sizing: border-box;
+  color: #36395a;
+  cursor: pointer;
+  display: inline-flex;
+  font-family: "JetBrains Mono", monospace;
+  height: 48px;
+  justify-content: center;
+  line-height: 1;
+  list-style: none;
+  overflow: hidden;
+  padding-left: 2.5vmax;
+  padding-right: 2.5vmax;
+  position: relative;
+  text-align: left;
+  text-decoration: none;
+  transition: box-shadow 0.15s, transform 0.15s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+  will-change: box-shadow, transform;
+  font-size: 18px;
+  margin-top: 1vmax;
+}
+
+.button-30:focus {
+  box-shadow: #d6d6e7 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px,
+    rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #d6d6e7 0 -3px 0 inset;
+}
+
+.button-30:hover {
+  box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px,
+    rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #d6d6e7 0 -3px 0 inset;
+  transform: translateY(-2px);
+}
+
+.button-30:active {
+  box-shadow: #d6d6e7 0 3px 7px inset;
+  transform: translateY(2px);
+}
+.registerImage > img {
+  width: 3vmax;
+  border-radius: 100%;
+}
+.registerImage > input {
+  display: flex;
+  padding: 0 !important;
+}
+.registerImage > input::file-selector-button:hover {
+  background-color: #fcfcfd;
+}
+.registerImage > input::file-selector-button {
+  cursor: pointer;
+  width: 100%;
+  height: 5vh;
+  z-index: 2;
+  border: none;
+  margin: 0;
+  font: 400 1vmax cursive;
+  transition: all 0.5s;
+  padding: 0 1vmax;
+  color: rgba(0, 0, 0, 0.464);
+  background-color: white;
+}
+.profilemain > div {
+  width: 30%;
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.profilemain > div:last-child {
+  align-items: start;
+}
+.profilemain > div:last-child .link {
+  width: 150%;
+}
+.link {
+  border: none;
+  text-decoration: none;
+  font: 400 1.5vmax roboto;
+  padding: 0.5vmax;
+  color: white;
+  display: block;
+  margin: 1vmax;
+  text-align: center;
+  transition: all 0.5s;
+  background-color: darkred;
+  width: 50%;
+}
+.link:hover {
+  background-color: #36395a;
+}
+.detail > div > p {
+  padding: 0.3vmax;
+  color: rgb(107, 106, 106);
+}
+@media screen and (minwidth: 480px) {
+  .loginsignup {
+    flex-direction: column;
+  }
+}

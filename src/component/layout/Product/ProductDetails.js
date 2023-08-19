@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./Product.css";
 import { useAlert } from "react-alert";
 import Carousel from "react-material-ui-carousel";
@@ -8,13 +8,29 @@ import { useParams } from "react-router-dom";
 import Loader from "../utils/Loader";
 import ReactStars from "react-rating-stars-component";
 import ReviewCard from "../Product/ReviewCard";
+import { addItemToCart } from "../../../actions/cartAction";
 const ProductDetails = () => {
   const params = useParams();
-  const alert = useAlert();
   const dispatch = useDispatch();
   const { loading, product, error } = useSelector(
     (state) => state.productDetails
   );
+  const [quantity, setQuantity] = useState(1);
+  const incQuantity = () => {
+    if (quantity >= product.stock) return;
+    const qty = quantity + 1;
+    setQuantity(qty);
+  };
+  const decQuantity = () => {
+    if (quantity <= 1) return;
+    const qty = quantity - 1;
+    setQuantity(qty);
+  };
+  const addtocart = (e) => {
+    e.preventDefault();
+    dispatch(addItemToCart(params.id, quantity));
+    alert("Item added to cart");
+  };
   useEffect(() => {
     if (error) {
       return alert(error);
@@ -74,11 +90,11 @@ const ProductDetails = () => {
 
                   <div className="detail-3-1">
                     <div className="detail-3-1-1">
-                      <button>-</button>
-                      <input type="number" value="1" />
-                      <button>+</button>
+                      <button onClick={decQuantity}>-</button>
+                      <input type="number" value={quantity} readOnly />
+                      <button onClick={incQuantity}>+</button>
                     </div>
-                    <button>Add to cart</button>
+                    <button onClick={addtocart}>Add to cart</button>
                   </div>
                   <p>
                     Status:

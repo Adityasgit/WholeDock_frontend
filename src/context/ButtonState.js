@@ -31,9 +31,15 @@ const ButtonState = (props) => {
   const setCategory = (val) => {
     setcategory(val);
   };
+  const [account, setaccount] = useState(false);
+  const setAccount = (val) => {
+    setaccount(!account);
+  };
   return (
     <ButtonContext.Provider
       value={{
+        account,
+        setAccount,
         category,
         setCategory,
         value,

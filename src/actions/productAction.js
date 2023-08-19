@@ -10,24 +10,43 @@ import {
 } from "../constants/productConstants";
 // for get all the products
 export const getProducts =
-  (sort, page = 1, keyword = "", price = [0, 1000], category = "") =>
+  (
+    sort,
+    page = 1,
+    keyword = "",
+    price = [0, 10000],
+    category = "",
+    rating = 0,
+    keywords = "",
+    company = ""
+  ) =>
   async (dispatch) => {
     try {
       console.log(page);
       let url = `/api/v1/products`;
+      // sort logic
       if (sort.sort.val) {
         url = `/api/v1/products?sort=${
           sort.sort.val && sort.sort.val
         }&page=${page}`;
-      } else if (category) {
-        url = `/api/v1/products?keyword=${keyword}&page=${page}&MRP[gte]=${price[0]}&MRP[lte]=${price[1]}&category=${category}`;
-      } else if (keyword || price) {
-        url = `/api/v1/products?keyword=${keyword}&page=${page}&MRP[gte]=${price[0]}&MRP[lte]=${price[1]}`;
       }
+      // filter logic
+      else {
+        url = `/api/v1/products?keyword=${keyword}&page=${page}&MRP[gte]=${
+          price[0]
+        }&MRP[lte]=${price[1]}${category && `&category=${category}`}${
+          rating !== 0 ? `&ratings[gte]=${rating}` : ""
+        }${keywords !== "" ? `&keywords=${keywords}` : ""}${
+          company !== "" ? `&companyName=${company}` : ""
+        }`;
+      }
+      // on request
       dispatch({ type: ALL_PRODUCT_REQUEST });
       const { data } = await axios.get(url);
+      // on success
       dispatch({ type: ALL_PRODUCT_SUCCESS, payload: data });
     } catch (error) {
+      // on error
       dispatch({
         type: ALL_PRODUCT_FAIL,
         payload: error.response.data.message,
