@@ -23,6 +23,7 @@ import ConfirmOrder from "./component/layout/order/ConfirmOrder.jsx";
 import Payment from "./component/layout/order/Payment.jsx";
 import PaymentSuccess from "./component/layout/order/PaymentSuccess.jsx";
 import MyOrders from "./component/layout/order/MyOrders.jsx";
+import OrderDetails from "./component/layout/order/OrderDetails.jsx";
 
 import axios from "axios";
 
@@ -92,6 +93,8 @@ function App() {
           <Route wxact path="/success" element={<PaymentSuccess />} />
           <Route wxact path="/orders" element={<MyOrders />} />
           <Route wxact path="/loading" element={<Loader />} />
+
+          <Route wxact path="/order/:id" element={<OrderDetails />} />
         </Routes>
       </ButtonState>
     </Router>

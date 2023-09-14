@@ -11,11 +11,12 @@ const MyOrders = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { loading, error, orders } = useSelector((state) => state.myOrders);
-  let { user } = useSelector((state) => state.user);
-  user = user.user;
-  const { isAuthenticated } = useSelector((state) => state.user);
+  let { user, isAuthenticated } = useSelector((state) => state.user);
+  user = user?.user;
+  console.log(isAuthenticated);
   const cols = [
     { field: "id", headerName: "Order Id", minWidth: 200, flex: 1 },
+
     {
       field: "status",
       headerName: "Status",
@@ -24,20 +25,6 @@ const MyOrders = () => {
       cellClassName: (params) => {
         return params.row.status === "Delivered" ? "greenColor" : "redColor";
       },
-    },
-    {
-      field: "itemsQty",
-      headerName: "Items Qty",
-      type: "number",
-      minWidth: 100,
-      flex: 0.5,
-    },
-    {
-      field: "amount",
-      headerName: "Amount",
-      type: "number",
-      minWidth: 100,
-      flex: 0.5,
     },
     {
       field: "actions",
@@ -54,6 +41,20 @@ const MyOrders = () => {
         );
       },
     },
+    {
+      field: "itemsQty",
+      headerName: "Items Qty",
+      type: "number",
+      minWidth: 100,
+      flex: 0.5,
+    },
+    {
+      field: "amount",
+      headerName: "Amount",
+      type: "number",
+      minWidth: 100,
+      flex: 0.5,
+    },
   ];
   const rows = [];
   orders &&
@@ -66,7 +67,7 @@ const MyOrders = () => {
       });
     });
   useEffect(() => {
-    if (!isAuthenticated) {
+    if (isAuthenticated === false) {
       navigate("/login");
     }
   }, [isAuthenticated, navigate]);
@@ -101,17 +102,22 @@ const MyOrders = () => {
                   textShadow: "1px 1px silver",
                 }}
               >
-                {user.name}'s Orders
+                {user?.name}'s Orders
               </Typography>
 
               <DataGrid
                 rows={rows}
                 columns={cols}
-                pageSizeOptions={5}
-                pagination={5}
+                initialState={{
+                  pagination: {
+                    paginationModel: {
+                      pageSize: 5,
+                    },
+                  },
+                }}
+                pageSizeOptions={[5]}
                 disableRowSelectionOnClick
-                disableVirtualization
-                style={{ height: "70vh" }}
+                style={{ minHeight: "70vh" }}
                 autoHeight
                 getRowId={(row) => row.status + "-" + row.amount}
               />
