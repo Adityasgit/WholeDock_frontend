@@ -5,6 +5,8 @@ import {
 } from "redux";
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
+import { persistStore, persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
 import {
   productDetailsReducer,
   productReducer,
@@ -15,6 +17,7 @@ import {
   userReducer,
 } from "./reducers/userReducer";
 import { cartReducer } from "./reducers/cartReducer";
+import { myOrdersReducer, newOrderReducer } from "./reducers/orderReducer";
 
 const reducer = combineReducers({
   products: productReducer,
@@ -23,22 +26,25 @@ const reducer = combineReducers({
   profile: profileReducer,
   forgotPassword: forgotPasswordReducer,
   cart: cartReducer,
+  newOrder: newOrderReducer,
+  myOrders: myOrdersReducer,
 });
 
-const initialState = {
-  cart: {
-    cartItems: localStorage.getItem("cartItems")
-      ? JSON.parse(localStorage.getItem("cartItems"))
-      : [],
-  },
+// Configure redux-persist
+const persistConfig = {
+  key: "root",
+  storage, // Use localStorage as the storage engine
 };
+
+const persistedReducer = persistReducer(persistConfig, reducer);
 
 const middleware = [thunk];
 
 const store = createStore(
-  reducer,
-  initialState,
+  persistedReducer, // Use the persisted reducer
   composeWithDevTools(applyMiddleware(...middleware))
 );
+// Create a persistor for persisting the store
+const persistor = persistStore(store);
 
-export default store;
+export { store, persistor };

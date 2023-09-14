@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import "./Product.css";
 import Carousel from "react-material-ui-carousel";
 import { useDispatch, useSelector } from "react-redux";
-import { getProductDetails } from "../../../actions/productAction";
-import { useParams } from "react-router-dom";
+import { clearErrors, getProductDetails } from "../../../actions/productAction";
+import { useNavigate, useParams } from "react-router-dom";
 import Loader from "../utils/Loader";
 import ReactStars from "react-rating-stars-component";
 import ReviewCard from "../Product/ReviewCard";
@@ -14,6 +14,9 @@ const ProductDetails = () => {
   const { loading, product, error } = useSelector(
     (state) => state.productDetails
   );
+  console.log(product);
+  const { isAuthenticated, user } = useSelector((state) => state.user);
+  const userId = user?.user?.user?._id || user?.user?._id;
   const [quantity, setQuantity] = useState(1);
   const incQuantity = () => {
     if (quantity >= product.stock || quantity >= 15) return;
@@ -25,14 +28,21 @@ const ProductDetails = () => {
     const qty = quantity - 1;
     setQuantity(qty);
   };
+  const navigate = useNavigate();
   const addtocart = (e) => {
     e.preventDefault();
-    dispatch(addItemToCart(params.id, quantity));
+    if (!isAuthenticated) {
+      navigate("/login");
+      return;
+    }
+    dispatch(addItemToCart(userId, params.id, quantity));
     alert("Item added to cart");
   };
   useEffect(() => {
     if (error) {
-      return alert(error);
+      dispatch(clearErrors());
+      alert(error);
+      return;
     }
     dispatch(getProductDetails(params.id));
   }, [dispatch, params.id, error]);
@@ -43,7 +53,7 @@ const ProductDetails = () => {
     size: window.innerWidth < 600 ? 15 : 25,
     isHalf: true,
   };
-  const pp = product.price || [-1, -1];
+  const pp = product?.price || [-1, -1];
   return (
     <>
       {loading ? (

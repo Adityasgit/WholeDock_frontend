@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./order.css";
 import CardItemCard from "./CartItemCard.js";
 import { addItemToCart, removeCartItem } from "../../../actions/cartAction";
@@ -8,23 +8,35 @@ import { Link, useNavigate } from "react-router-dom";
 const Cart = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { cartItems } = useSelector((state) => state.cart);
+  const { isAuthenticated, user } = useSelector((state) => state.user);
+  useEffect(() => {
+    if (!isAuthenticated) {
+      navigate("/login");
+    }
+  }, [isAuthenticated, navigate]);
+  const { cart } = useSelector((state) => state);
   const increaseQty = (id, quantity, stock) => {
     const newQty = quantity + 1;
+    console.log(newQty);
     if (newQty > stock || newQty > 15) return;
-    dispatch(addItemToCart(id, newQty));
+    dispatch(addItemToCart(userId, id, newQty));
   };
   const decreaseQty = (id, quantity, stock) => {
     const newQty = quantity - 1;
     if (newQty < 1) return;
-    dispatch(addItemToCart(id, newQty));
+    dispatch(addItemToCart(userId, id, newQty));
   };
+
+  let userId = user.user.user?._id || user.user?._id || user?._id;
+  userId = userId?.toString();
+  const cartItems = cart[userId]?.cartItems || [];
+
   const checkOutHandler = () => {
     navigate("/shipping");
   };
   return (
     <>
-      {cartItems.length === 0 ? (
+      {cartItems?.length === 0 ? (
         <div
           className="cartpage"
           style={{
@@ -60,7 +72,7 @@ const Cart = () => {
           <div
             className="cartpage"
             style={{
-              backgroundColor: "#eaeded",
+              backgroundColor: "white",
               width: "100vw",
               minHeight: "100vh",
               height: "fit-content",
@@ -123,15 +135,28 @@ const Cart = () => {
                   }}
                 >
                   <p>Delivery Charges</p>
-                  <p>{`+${15}`}</p>
+                  <p>{`+${
+                    cartItems.reduce(
+                      (acc, item) => acc + item.quantity * item.price[0],
+                      0
+                    ) > 500
+                      ? 10
+                      : 18
+                  }`}</p>
                 </div>
-                <div style={{ borderTop: "1px solid red" }}>
+                <div style={{ borderTop: "1px ridge black" }}>
                   <p>Payable Amount</p>
                   <p style={{ color: "red", fontWeight: "bold" }}>{`₹${
                     cartItems.reduce(
                       (acc, item) => acc + item.quantity * item.price[0],
                       0
-                    ) + 15
+                    ) +
+                    (cartItems.reduce(
+                      (acc, item) => acc + item.quantity * item.price[0],
+                      0
+                    ) > 500
+                      ? 10
+                      : 18)
                   }`}</p>
                 </div>
               </div>

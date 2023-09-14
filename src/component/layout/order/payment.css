@@ -1,0 +1,52 @@
+.paymentpage {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: flex-end;
+}
+.paymentcontainer {
+  margin: 5vmax;
+  margin-top: 7vmax;
+  height: calc(100% - 7vmax);
+  width: 45%;
+}
+.paymentform {
+  display: flex;
+  width: 50%;
+  height: 90%;
+  margin: auto;
+  flex-direction: column;
+  align-content: center;
+  justify-content: space-around;
+}
+.paymentInput {
+  padding: 1vmax 4vmax;
+  padding-right: 1vmax;
+  width: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.321);
+  border-radius: 4px;
+  outline: none;
+}
+.paymentInput > div {
+  display: flex;
+}
+.paymentform > div > svg {
+  position: absolute;
+  transform: translate(1vmax, 0.8vmax);
+  font-size: 1.8vmax;
+  color: rgba(0, 0, 0, 0.712);
+}
+.paymentformbtn {
+  border: none;
+  background-color: rgb(8, 8, 81);
+  font: 300 1.2vmax "Roboto";
+  width: 100%;
+  padding: 0.8vmax;
+  cursor: pointer;
+  transition: all 0.5s;
+  outline: none;
+  color: white;
+}
+.paymentformbtn:hover {
+  background-color: darkred;
+}

@@ -1,3 +1,4 @@
+import { SAVE_SHIPPING_INFO } from "../constants/cartConstants";
 import { CLEAR_ERRORS } from "../constants/productConstants";
 import {
   LOGIN_SUCCESS,
@@ -142,4 +143,8 @@ export const resetPassword = (token, password) => async (dispatch) => {
       payload: error.response.data.message,
     });
   }
+};
+
+export const saveShippingInfo = (data) => async (dispatch) => {
+  dispatch({ type: SAVE_SHIPPING_INFO, payload: data });
 };

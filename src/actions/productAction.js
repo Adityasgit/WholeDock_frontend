@@ -22,7 +22,6 @@ export const getProducts =
   ) =>
   async (dispatch) => {
     try {
-      console.log(page);
       let url = `/api/v1/products`;
       // sort logic
       if (sort.sort.val) {
@@ -56,6 +55,7 @@ export const getProducts =
 // for get the product details
 export const getProductDetails = (id) => async (dispatch) => {
   try {
+    console.log(id);
     dispatch({ type: PRODUCT_DETAILS_REQUEST });
     const { data } = await axios.get(`/api/v1/products/${id}`);
     dispatch({ type: PRODUCT_DETAILS_SUCCESS, payload: data.product });

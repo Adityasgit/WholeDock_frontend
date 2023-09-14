@@ -84,7 +84,6 @@ const Login = () => {
   useEffect(() => {
     if (error) {
       alert(error + error?.path);
-      console.log(error);
       dispatch(clearErrors());
       setLoginemail("");
       setLoginpassword("");

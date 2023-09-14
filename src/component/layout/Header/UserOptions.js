@@ -13,7 +13,9 @@ import { useDispatch, useSelector } from "react-redux";
 import Loader from "../utils/Loader";
 const UserOptions = ({ user }) => {
   const { loading } = useSelector((state) => state.user);
-  const { cartItems } = useSelector((state) => state.cart);
+  const { cart } = useSelector((state) => state);
+  let userId = user.user?._id;
+  const cartItems = cart[userId]?.cartItems || [];
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -43,11 +45,11 @@ const UserOptions = ({ user }) => {
         icon: (
           <CartIcon
             style={
-              cartItems.length > 0 ? { color: "purple" } : { color: "unset" }
+              cartItems?.length > 0 ? { color: "purple" } : { color: "unset" }
             }
           />
         ),
-        name: `Cart(${cartItems.length})`,
+        name: `Cart(${cartItems?.length})`,
         func: cart,
       },
       { icon: <PersonIcon />, name: "Account", func: account },

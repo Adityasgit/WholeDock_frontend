@@ -80,7 +80,7 @@ const ProfileUpdate = () => {
     if (user?.avatar) {
       setAvatarPreview(user.avatar.url);
     }
-  }, []);
+  }, [user]);
   // Update user profile and handle success/error
   useEffect(() => {
     if (error) {

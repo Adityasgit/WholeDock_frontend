@@ -382,6 +382,7 @@ const AllProducts = () => {
             {companies.map((com) => {
               return (
                 <div
+                  key={com}
                   onClick={() => {
                     setCompany(com);
                     clear();
@@ -488,9 +489,13 @@ const AllProducts = () => {
                   style={{
                     margin: "0",
                     alignSelf: "center",
-                    position: "absolute",
-                    top: "5vmax",
+                    position: "fixed",
+                    top: "13vmax",
                     right: "1vmax",
+                    backgroundColor: "white",
+                    padding: "1vmax",
+                    borderRadius: "3px",
+                    zIndex: "8",
                   }}
                 >
                   Showing {filteredCount}/{productsCount} results.
@@ -553,7 +558,7 @@ const AllProducts = () => {
                 Allproducts[0] &&
                 Allproducts.map((product) => (
                   <ProductCard
-                    key={product._id}
+                    key={product?._id}
                     product={product}
                     rating={product.ratings}
                   />

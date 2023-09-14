@@ -25,3 +25,17 @@ input::-webkit-inner-spin-button {
   color: black;
   text-shadow: 1px 0px red, -1px 0px green;
 }
+.page {
+  width: 100vw;
+  height: 100vh;
+  max-height: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.greenColor {
+  color: green;
+}
+.redColor {
+  color: red;
+}

@@ -11,7 +11,7 @@ const Product = ({ product, rating }) => {
     value: rating,
     isHalf: true,
   };
-  let pp = product.price || [-1, -1];
+  let pp = product?.price || [-1, -1];
   return (
     <>
       <Link className="productcard" to={`/product/${product._id}`}>
@@ -19,10 +19,14 @@ const Product = ({ product, rating }) => {
           <img
             src="https://rukminim2.flixcart.com/image/612/612/xif0q/t-shirt/q/2/i/m-s-r-b-w-farbot-original-imagjuxy9kn5qyam.jpeg?q=70"
             alt={product.name}
+            style={{ objectFit: "contain" }}
           />
         </div>
         <div className="pc-name-qty">
-          <div className="pc-name">{product.name}</div>
+          <div className="pc-name">
+            {product.name.slice(0, 15)}
+            {product.name.length > 15 ? "..." : ""}
+          </div>
           <div className="pc-qty">{product.Quantity}</div>
         </div>
         <div style={{ paddingLeft: "1vmin" }}>
