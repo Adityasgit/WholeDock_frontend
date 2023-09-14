@@ -53,7 +53,11 @@ const Profile = () => {
                   transition: "all 0.3s linear",
                 }}
               >
-                <img src={img || profilePng} alt="your profileImage" />
+                <img
+                  src={img || profilePng}
+                  alt="your profileImage"
+                  style={{ objectFit: "cover" }}
+                />
               </div>
               <Link className="link" to="/account/update">
                 Edit Profile

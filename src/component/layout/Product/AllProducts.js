@@ -489,8 +489,8 @@ const AllProducts = () => {
                     margin: "0",
                     alignSelf: "center",
                     position: "absolute",
+                    top: "5vmax",
                     right: "1vmax",
-                    top: "60%",
                   }}
                 >
                   Showing {filteredCount}/{productsCount} results.

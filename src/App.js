@@ -5,6 +5,7 @@ import WebFont from "webfontloader";
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "./component/layout/Home/Home";
+import Coupons from "./component/layout/Home/Coupons.js";
 import ProductDetails from "./component/layout/Product/ProductDetails";
 import AllProducts from "./component/layout/Product/AllProducts";
 import Search from "./component/layout/Product/Search";
@@ -18,6 +19,7 @@ import ProfileUpdate from "./component/layout/user/ProfileUpdate";
 import PasswordUpdate from "./component/layout/user/PasswordUpdate";
 import PasswordForgot from "./component/layout/user/PasswordForgot";
 import ResetPassword from "./component/layout/user/ResetPassword.js";
+import Cart from "./component/layout/order/Cart.js";
 function App() {
   const { isAuthenticated, user, loading } = useSelector((state) => state.user);
   React.useEffect(() => {
@@ -46,6 +48,9 @@ function App() {
           <Route exact path="/account/update" element={<ProfileUpdate />} />
           <Route exact path="/password/update" element={<PasswordUpdate />} />
           <Route exact path="/password/forgot" element={<PasswordForgot />} />
+
+          <Route exact path="/cart" element={<Cart />} />
+          <Route exact path="/coupons" element={<Coupons />} />
           <Route
             exact
             path="/password/reset/:token"

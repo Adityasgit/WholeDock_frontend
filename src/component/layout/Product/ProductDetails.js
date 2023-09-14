@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "./Product.css";
-import { useAlert } from "react-alert";
 import Carousel from "react-material-ui-carousel";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductDetails } from "../../../actions/productAction";
@@ -17,7 +16,7 @@ const ProductDetails = () => {
   );
   const [quantity, setQuantity] = useState(1);
   const incQuantity = () => {
-    if (quantity >= product.stock) return;
+    if (quantity >= product.stock || quantity >= 15) return;
     const qty = quantity + 1;
     setQuantity(qty);
   };
@@ -36,7 +35,7 @@ const ProductDetails = () => {
       return alert(error);
     }
     dispatch(getProductDetails(params.id));
-  }, [dispatch, params.id, alert, error]);
+  }, [dispatch, params.id, error]);
   const options = {
     edit: false,
     color: "rgba(20,20,20,0.1)",

@@ -176,12 +176,10 @@
 .right-navbar {
   display: flex;
   flex-direction: row;
-  justify-content: center;
-  align-items: baseline;
   width: 100%;
-  margin-left: 2vmin;
   position: relative;
   right: -13vmax;
+  transition: all 1s linear;
 }
 .right-navbar .items {
   align-items: center;
@@ -433,4 +431,7 @@
   height: 56px;
   overflow: hidden;
   border-radius: 50%;
+}
+.btn :hover {
+  cursor: pointer;
 }

@@ -5,6 +5,7 @@ import DashboardIcon from "@mui/icons-material/SpaceDashboard";
 import PersonIcon from "@mui/icons-material/Person";
 import ExitIcon from "@mui/icons-material/ExitToApp";
 import ListIcon from "@mui/icons-material/ListAlt";
+import CartIcon from "@mui/icons-material/ShoppingCart";
 import { useNavigate } from "react-router-dom";
 import { logOut } from "../../../actions/userAction";
 import { Backdrop } from "@mui/material";
@@ -12,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Loader from "../utils/Loader";
 const UserOptions = ({ user }) => {
   const { loading } = useSelector((state) => state.user);
+  const { cartItems } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -27,6 +29,9 @@ const UserOptions = ({ user }) => {
     const account = () => {
       navigate("/account");
     };
+    const cart = () => {
+      navigate("/cart");
+    };
     const logoutUser = () => {
       dispatch(logOut());
       navigate("/");
@@ -34,6 +39,17 @@ const UserOptions = ({ user }) => {
     };
     let newActions = [
       { icon: <ListIcon />, name: "Orders", func: orders },
+      {
+        icon: (
+          <CartIcon
+            style={
+              cartItems.length > 0 ? { color: "purple" } : { color: "unset" }
+            }
+          />
+        ),
+        name: `Cart(${cartItems.length})`,
+        func: cart,
+      },
       { icon: <PersonIcon />, name: "Account", func: account },
       { icon: <ExitIcon />, name: "LogOut", func: logoutUser },
     ];
@@ -47,7 +63,7 @@ const UserOptions = ({ user }) => {
     }
 
     setActions(newActions);
-  }, [user, dispatch, navigate]);
+  }, [user, dispatch, navigate, cartItems]);
   return (
     <>
       {loading ? (
@@ -72,6 +88,7 @@ const UserOptions = ({ user }) => {
                   }
                   alt="photu"
                   className="speedDialIcon"
+                  style={{ objectFit: "cover" }}
                 />
               </div>
             }
@@ -81,6 +98,7 @@ const UserOptions = ({ user }) => {
                 key={action.name}
                 icon={action.icon}
                 tooltipTitle={action.name}
+                tooltipOpen={window.innerWidth <= 600}
                 onClick={action.func}
               />
             ))}

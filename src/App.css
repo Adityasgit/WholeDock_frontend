@@ -19,3 +19,9 @@ input::-webkit-inner-spin-button {
   margin: 1vmax auto;
   padding: 0.45vmax;
 }
+.beauty {
+  font: 500 2vmax cursive;
+  text-align: center;
+  color: black;
+  text-shadow: 1px 0px red, -1px 0px green;
+}

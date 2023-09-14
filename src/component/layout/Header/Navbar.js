@@ -6,8 +6,11 @@ import { FaShopify, FaSearch, FaRegWindowClose, FaUser } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { RiCoupon2Fill } from "react-icons/ri";
 import Search from "./Search";
-
+import { useSelector } from "react-redux";
+import ShoppingCartTwoToneIcon from "@mui/icons-material/ShoppingCartTwoTone";
+import LoginTwoToneIcon from "@mui/icons-material/LoginTwoTone";
 const Navbar = (props) => {
+  const { isAuthenticated } = useSelector((state) => state.user);
   // State and Context
   const navigate = useNavigate();
   const {
@@ -101,7 +104,7 @@ const Navbar = (props) => {
               </Link>
               <Link
                 style={{ textDecoration: "none", color: "white" }}
-                to="/login"
+                to="/coupons"
               >
                 <div className="items">
                   Coupons
@@ -119,8 +122,68 @@ const Navbar = (props) => {
                 </div>
               </Link>
             </div>
-            <div className="right-navbar">
-              <div className="user">Account</div>
+            <div className="right-navbar" style={{ textAlign: "center" }}>
+              {isAuthenticated ? (
+                <div
+                  className=""
+                  style={{
+                    alignContent: "center",
+                    justifyContent: "center",
+                    alignSelf: "center",
+                    width: "80%",
+                    textAlign: "center",
+                  }}
+                >
+                  <button
+                    className="btn"
+                    style={{ padding: "8px 28px" }}
+                    onClick={() => navigate("/cart")}
+                  >
+                    <span
+                      style={{
+                        fontSize: "1.2rem",
+                        display: "inline-block",
+                      }}
+                    >
+                      {" "}
+                      <ShoppingCartTwoToneIcon
+                        style={{ transform: "translateY(4px)" }}
+                      />
+                      &nbsp; Cart
+                    </span>
+                  </button>
+                </div>
+              ) : (
+                <div
+                  className=""
+                  style={{
+                    alignContent: "center",
+                    justifyContent: "center",
+                    alignSelf: "center",
+                    width: "70%",
+                    textAlign: "center",
+                  }}
+                >
+                  <button
+                    className="btn"
+                    style={{ padding: "8px 28px" }}
+                    onClick={() => navigate("/login")}
+                  >
+                    <span
+                      style={{
+                        fontSize: "1.2rem",
+                        display: "inline-block",
+                      }}
+                    >
+                      {" "}
+                      <LoginTwoToneIcon
+                        style={{ transform: "translateY(4px)" }}
+                      />
+                      &nbsp;Login
+                    </span>
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </>

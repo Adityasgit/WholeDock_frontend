@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../user/login.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import loginimg from "../../../images/login.png";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
@@ -35,7 +35,7 @@ const Login = () => {
     e.preventDefault();
     dispatch(login(loginemail, loginpassword));
     if (isAuthenticated) {
-      navigate("/");
+      navigate(redirect);
     }
   };
   const signUpSubmit = (e) => {
@@ -80,7 +80,7 @@ const Login = () => {
   const registerDataChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
-
+  const redirect = "/account";
   useEffect(() => {
     if (error) {
       alert(error + error?.path);
@@ -97,9 +97,9 @@ const Login = () => {
       setAvatarPreview(profilePng);
     }
     if (isAuthenticated) {
-      navigate("/");
+      navigate(redirect);
     }
-  }, [dispatch, error, isAuthenticated, navigate]);
+  }, [dispatch, error, isAuthenticated, navigate, redirect]);
   useEffect(() => {
     setTimeout(() => {
       setImg(true);

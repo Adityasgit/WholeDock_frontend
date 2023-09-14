@@ -1,0 +1,119 @@
+.cartpage {
+  padding: 5vmax;
+  padding-top: 10vmax;
+}
+.cartHeader {
+  background-color: rgb(255, 255, 255);
+  width: 70%;
+  display: grid;
+  grid-template-columns: 2fr 0.5fr 0.5fr;
+  color: black;
+  border-top-left-radius: 1vmin;
+  border-top-right-radius: 1vmin;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.442);
+  font: bold 1.3vmax "Roboto";
+}
+.cartHeader > p {
+  margin: 1.5vmax;
+}
+.cartHeader > p:last-child {
+  text-align: end;
+}
+.cardItem {
+  display: flex;
+  padding: 1.2vmax;
+  height: 12vmax;
+  align-items: flex-start;
+}
+.cardItem > img {
+  width: 8vmax;
+  height: 100%;
+  object-fit: contain;
+}
+.cardItem > div {
+  display: flex;
+  margin: 1vmax 2vmax;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.cardItem > div > a {
+  font: 300 2vmax cursive;
+  text-decoration: none;
+  margin-bottom: 1vmax;
+  color: rgba(25, 25, 25, 0.803);
+}
+.cardItem > div > span {
+  font: 300 1.4vmax "Roboto";
+  text-decoration: none;
+  color: rgba(25, 25, 25, 0.803);
+}
+.cardItem > div > p {
+  font: 100 1vmax "Roboto";
+  cursor: pointer;
+  color: darkred;
+}
+.cartContainer {
+  width: 70%;
+  display: grid;
+  grid-template-columns: 2fr 0.5fr 0.5fr;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.441);
+}
+.cartContainer:last-child {
+  border-bottom: none;
+}
+.cartInput {
+  display: flex;
+  align-items: center;
+  height: 8vmax;
+  padding: 1vmax;
+}
+.cartInput > input {
+  border: none;
+  margin: 0.5vmax;
+  width: 1vmax;
+  font: 500 1vmax "Roboto";
+  color: rgba(0, 0, 0, 0.841);
+  outline: none;
+  text-align: center;
+}
+.cartInput > button {
+  border: none;
+  background-color: rgba(0, 0, 0, 0.617);
+  color: white;
+  cursor: pointer;
+  padding: 0.5vmax;
+  border-radius: 0;
+  transition: all 0.5s;
+}
+.cartInput > button:hover {
+  background-color: rgba(0, 0, 0, 0.798);
+}
+.cardSubTotal {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0.5vmax;
+  font: 300 1.6vmax cursive;
+  align-items: center;
+  width: 50%;
+  margin: auto;
+  color: rgba(0, 0, 0, 0.705);
+}
+
+.cartGrossTotal {
+  display: grid;
+  grid-template-columns: 2fr 1.5fr;
+  width: 70%;
+}
+.cartGrossTotalBox > div {
+  border-top: 2px solid darkblue;
+  margin: 1vmax 4vmax;
+  margin-right: 0;
+  padding: 2vmax 0;
+  font: 300 1.2vmax "Roboto";
+  display: flex;
+  justify-content: space-between;
+}
+.checkoutbtn {
+  display: flex;
+  justify-content: flex-end;
+}
