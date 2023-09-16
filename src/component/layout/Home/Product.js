@@ -1,15 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import ReactStars from "react-rating-stars-component";
+import { Rating } from "@mui/material";
 
-const Product = ({ product, rating }) => {
+const Product = ({ product }) => {
   const options = {
-    edit: false,
-    color: "rgba(20,20,20,0.1)",
-    activeColor: "tomato",
-    size: window.innerWidth < 600 ? 15 : 25,
-    value: rating,
-    isHalf: true,
+    size: "small",
+    value: product.ratings,
+    readOnly: true,
+    precision: 0.5,
   };
   let pp = product?.price || [-1, -1];
   return (
@@ -30,7 +28,7 @@ const Product = ({ product, rating }) => {
           <div className="pc-qty">{product.Quantity}</div>
         </div>
         <div style={{ paddingLeft: "1vmin" }}>
-          <ReactStars {...options} />
+          <Rating {...options} />
         </div>
         <span className="numrev">({product.numofReviews} Reviews)</span>
         <div className="pc-price">

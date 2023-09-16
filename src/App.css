@@ -27,7 +27,6 @@ input::-webkit-inner-spin-button {
 }
 .page {
   width: 100vw;
-  height: 100vh;
   max-height: fit-content;
   display: flex;
   justify-content: center;

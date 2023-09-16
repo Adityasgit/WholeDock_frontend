@@ -273,3 +273,54 @@
   justify-items: center;
   justify-content: space-around;
 }
+.orderDetailsInnerBox > div,
+.orderDetailspaymentbox > div {
+  display: flex;
+  flex-direction: row;
+  justify-items: flex-end;
+  margin: 1vmax;
+  width: 100%;
+}
+.orderDetailsInnerBox > div > p,
+.orderDetailspaymentbox > div > p {
+  width: 20vmax;
+  max-width: 20vmax;
+  overflow: scroll;
+}
+.orderDetailsInnerBox > div > span,
+.orderDetailspaymentbox > div > span {
+  max-width: 30vmax;
+  overflow: scroll;
+  width: 30vmax;
+  justify-self: right;
+  align-self: center;
+}
+.orderdetailsCartitemscontainer {
+  display: flex;
+  margin: auto;
+  width: 80%;
+  flex-direction: column;
+  justify-content: center;
+}
+.orderdetailsCartitemscontainer > div {
+  margin: 2vmax;
+  display: flex;
+  height: 7vmax;
+  flex-direction: row;
+  border-bottom: 1px solid grey;
+}
+.orderdetailsCartitemscontainer > div > img {
+  height: 100%;
+}
+.orderdetailsCartitemscontainer > div > a {
+  width: 20vmax;
+  max-width: 20vmax;
+  text-decoration: none;
+  color: black;
+  padding: 3vmax;
+}
+.orderdetailsCartitemscontainer > div > span {
+  width: auto;
+  padding: 2vmax;
+  padding-top: 3vmax;
+}

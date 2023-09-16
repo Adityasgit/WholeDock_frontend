@@ -26,21 +26,7 @@ const MyOrders = () => {
         return params.row.status === "Delivered" ? "greenColor" : "redColor";
       },
     },
-    {
-      field: "actions",
-      flex: 0.3,
-      minWidth: 150,
-      type: "number",
-      headerName: "Details",
-      sortable: false,
-      renderCell: (params) => {
-        return (
-          <Link to={`/order/${params.row.id}`}>
-            <Launch />
-          </Link>
-        );
-      },
-    },
+
     {
       field: "itemsQty",
       headerName: "Items Qty",
@@ -54,6 +40,21 @@ const MyOrders = () => {
       type: "number",
       minWidth: 100,
       flex: 0.5,
+    },
+    {
+      field: "actions",
+      flex: 0.3,
+      minWidth: 100,
+      type: "number",
+      headerName: "Details",
+      sortable: false,
+      renderCell: (params) => {
+        return (
+          <Link to={`/order/${params.row.id}`}>
+            <Launch />
+          </Link>
+        );
+      },
     },
   ];
   const rows = [];
@@ -84,10 +85,20 @@ const MyOrders = () => {
         <Loader />
       ) : (
         <>
-          <div className="page">
+          <div
+            className="page"
+            style={{
+              backgroundColor: "#f1f3f6",
+            }}
+          >
             <div
               className="datagrid"
-              style={{ width: "80%", paddingTop: "4vmax", maxHeight: "80%" }}
+              style={{
+                width: "80%",
+                paddingTop: "8vmax",
+                maxHeight: "80%",
+                backgroundColor: "white",
+              }}
             >
               <Typography
                 style={{

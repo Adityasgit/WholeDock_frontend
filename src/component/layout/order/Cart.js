@@ -116,7 +116,14 @@ const Cart = () => {
                 </div>
               ))}
 
-            <div className="cartGrossTotal">
+            <div
+              className="cartGrossTotal"
+              style={{
+                position: "fixed",
+                right: "2vmax",
+                top: "17vmax",
+              }}
+            >
               <div></div>
               <div className="cartGrossTotalBox">
                 <div style={{ marginBottom: "0" }}>
