@@ -23,7 +23,7 @@ const UserOptions = ({ user }) => {
   const [open, setOpen] = useState(false);
   useEffect(() => {
     const dashboard = () => {
-      navigate("/dashboard");
+      navigate("/admin/dashboard");
     };
     const orders = () => {
       navigate("/orders");

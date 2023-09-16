@@ -15,6 +15,7 @@ import { CreditCard, Event, VpnKey } from "@mui/icons-material";
 import "./payment.css";
 import { Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { clearCartItems } from "../../../actions/cartAction";
 const Payment = () => {
   const orderInfo = JSON.parse(sessionStorage.getItem("orderInfo"));
   console.log(orderInfo);
@@ -98,7 +99,7 @@ const Payment = () => {
             status: result.paymentIntent.status,
           };
           dispatch(createOrder(order));
-          // cart[user.user._id].cartItems = [];
+          dispatch(clearCartItems(user.user._id));
           navigate("/success");
         } else {
           alert("There is Some error while processig with payment");

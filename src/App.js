@@ -24,12 +24,14 @@ import Payment from "./component/layout/order/Payment.jsx";
 import PaymentSuccess from "./component/layout/order/PaymentSuccess.jsx";
 import MyOrders from "./component/layout/order/MyOrders.jsx";
 import OrderDetails from "./component/layout/order/OrderDetails.jsx";
+import AdminProducts from "./component/layout/order/AdminProducts.jsx";
 
 import axios from "axios";
 
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import Loader from "./component/layout/utils/Loader";
+import AdminDash from "./component/layout/Admin/AdminDash";
 const stripePromise = loadStripe(
   "pk_test_51NnNOvSFuTHP5molcpAQuWNXU5TOls5mRUcwxM2pMtCrzISqN1n5S2Cy8kl2iPKhgSXPui6zXZmdwJqPZZgsfTcn008bgRrpF3"
 );
@@ -90,17 +92,19 @@ function App() {
               </Elements>
             }
           />
-          <Route wxact path="/success" element={<PaymentSuccess />} />
-          <Route wxact path="/orders" element={<MyOrders />} />
-          <Route wxact path="/loading" element={<Loader />} />
+          <Route exact path="/success" element={<PaymentSuccess />} />
+          <Route exact path="/orders" element={<MyOrders />} />
+          <Route exact path="/loading" element={<Loader />} />
 
-          <Route wxact path="/order/:id" element={<OrderDetails />} />
+          <Route exact path="/order/:id" element={<OrderDetails />} />
+
+          <Route exact path="admin/dashboard" element={<AdminDash />} />
+
+          <Route exact path="admin/products" element={<AdminProducts />} />
         </Routes>
       </ButtonState>
     </Router>
   );
 }
-
-
 
 export default App;

@@ -1,5 +1,6 @@
 import {
   ADD_TO_CART,
+  CLEAR_CART,
   REMOVE_CART_ITEM,
   SAVE_SHIPPING_INFO,
 } from "../constants/cartConstants";
@@ -25,6 +26,13 @@ export const removeCartItem = (userId, id) => async (dispatch) => {
   dispatch({
     type: REMOVE_CART_ITEM,
     payload: { userId, id },
+  });
+};
+
+export const clearCartItems = (userId) => async (dispatch) => {
+  dispatch({
+    type: CLEAR_CART,
+    payload: { userId },
   });
 };
 

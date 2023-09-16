@@ -1,0 +1,99 @@
+.sidebar {
+  padding: 4vmax 0;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid grey;
+}
+.sidebar > a:first-child {
+  padding: 0;
+}
+.sidebar > a > img {
+  width: 50%;
+  transition: all 0.5s;
+}
+.sidebar > a > img:hover {
+  filter: drop-shadow(0 0 10px rgb(7, 14, 41));
+}
+.sidebar a {
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.694);
+  padding: 1.2rem;
+  transition: all 0.5s;
+}
+.sidebar a:hover {
+  color: rgb(0, 0, 189);
+  transform: scale(1.1);
+}
+.sidebar a > p {
+  display: flex;
+  align-items: center;
+}
+.sidebar a > p > svg {
+  margin-right: 0.5rem;
+}
+
+.dashcontainer > h1 {
+  color: rgba(0, 0, 0, 0.779);
+  font: 600 2rem "Roboto";
+  width: 83%;
+  padding: 1.5rem;
+  padding-bottom: 0.5rem;
+  margin: auto;
+  text-align: center;
+  position: fixed;
+  background-color: white;
+}
+.dashSummary {
+  padding-top: 6vmax;
+}
+
+.dashSummary > div {
+  display: flex;
+  justify-content: center;
+}
+.dashSummary > div > p {
+  background-color: rgba(48, 8, 48, 0.775);
+  color: white;
+  width: 100%;
+  margin: 0 2rem;
+  padding: 1.4rem;
+  text-align: center;
+  font: 800 1.2rem "Roboto";
+}
+.dashsummaryb2 {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+.dashsummaryb2 > a {
+  color: black;
+  font: 500 1.5rem "Roboto";
+  text-align: center;
+  background-color: rgba(174, 198, 235, 0.841);
+  text-decoration: none;
+  padding: 1.5rem;
+  height: 13vmax;
+  width: 13vmax;
+  margin: 2rem;
+  margin-top: 0.5rem;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.dashsummaryb2 > a:first-child {
+  background-color: rgba(193, 155, 229, 0.693);
+}
+.dashsummaryb2 > a:last-child {
+  background-color: rgba(229, 155, 215, 0.75);
+}
+.linechart {
+  width: 80%;
+  margin: auto;
+}
+.dotchart {
+  width: 30vmax;
+  margin: auto;
+}
