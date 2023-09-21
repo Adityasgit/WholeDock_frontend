@@ -11,7 +11,7 @@ import { useParams } from "react-router-dom";
 import Slider from "@mui/material-next/Slider";
 import { Typography } from "@mui/material";
 import { FaStar, FaRegStar } from "react-icons/fa";
-
+// import loader from "../../../images/skeleton-loading.gif";
 // Define star icons for ratings
 
 // Function to display the value for Slider component
@@ -58,7 +58,7 @@ const genderOptions = [
 const sortOptions = [
   {
     label: "Relevance",
-    value: "_id",
+    value: "priority, _id",
   },
   {
     label: "Popularity",
@@ -127,8 +127,8 @@ const AllProducts = () => {
   const { loading, products, filteredCount, productsCount, error } =
     useSelector((state) => state.products);
   const keyword = params.keyword;
-  const { Allproducts, setAllproducts } = useContext(ButtonContext);
-
+  // const { Allproducts, setAllproducts } = useContext(ButtonContext);
+  const [Allproducts, setAllproducts] = useState([]);
   // Clear search results
   const clear = () => {
     setAllproducts([]);
@@ -162,7 +162,7 @@ const AllProducts = () => {
   // Fetch products based on filters and keyword
   useEffect(() => {
     if (error) {
-      alert(error, error.path);
+      alert(error + error.path);
       dispatch(clearErrors());
     }
     dispatch(
@@ -195,8 +195,24 @@ const AllProducts = () => {
 
   // Update products when new data is fetched
   useEffect(() => {
-    setAllproducts([...Allproducts, ...products]);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    if (Array.isArray(products)) {
+      // If AllProducts is empty, add all products directly
+      if (AllProducts.length === 0) {
+        setAllproducts([...products]);
+        return;
+      }
+
+      // Create a set to store unique product IDs
+      const uniqueProductIds = new Set(AllProducts.map((prod) => prod.id));
+
+      // Filter out products that already exist in AllProducts
+      const newProducts = products.filter(
+        (prod) => !uniqueProductIds.has(prod.id)
+      );
+
+      // Add unique products to AllProducts
+      setAllproducts((old) => [...old, ...newProducts]);
+    }
   }, [products]);
 
   return (
@@ -439,15 +455,15 @@ const AllProducts = () => {
                   />
                   <label
                     htmlFor={option.value.toString()}
-                    style={rating == option.value ? { color: "purple" } : {}}
+                    style={rating === option.value ? { color: "purple" } : {}}
                   >
                     <span
                       style={
-                        rating == option.value
+                        rating === option.value
                           ? { ...customRadioStyle, borderColor: "purple" }
                           : customRadioStyle
                       }
-                      className={rating == option.value ? "purple-radio" : ""}
+                      className={rating === option.value ? "purple-radio" : ""}
                     ></span>
                     {option.label}
                   </label>
@@ -524,47 +540,65 @@ const AllProducts = () => {
             )}
 
           {/* Show loader while fetching data */}
-          {loading && page === 1 && <Loader />}
-
-          {/* Infinite scroll to load more products */}
-          <InfiniteScroll
-            dataLength={Allproducts.length} // This is important field to render the next data
-            next={fetchData}
-            hasMore={filteredCount !== Allproducts.length}
-            loader={
-              <div style={{ textAlign: "center", margin: "1vmax" }}>
-                <img
-                  style={{ width: "8vmax" }}
-                  src="https://www.bing.com/th/id/OGC.aabee301152e107b1997f6725a71f7fc?pid=1.7&rurl=https%3a%2f%2fcdn.dribbble.com%2fusers%2f1186261%2fscreenshots%2f3718681%2f_______.gif&ehk=XLq3SmNTkA2Bm4kL03q01YHkEnQvfHc3J4jO%2bmvFa%2fo%3d"
-                  alt="Loading"
-                />
-              </div>
-            }
-            endMessage={
-              <p
-                style={{
-                  textAlign: "center",
-                  margin: "1vmax",
-                  color: "grey",
-                }}
+          {loading ? (
+            <Loader />
+          ) : (
+            <>
+              <InfiniteScroll
+                dataLength={Allproducts.length} // This is important field to render the next data
+                next={fetchData}
+                hasMore={filteredCount !== Allproducts.length}
+                loader={
+                  <div style={{ margin: "1vmax" }}>
+                    <img
+                      style={{ width: "19.5vmax" }}
+                      src="https://www.bing.com/th/id/OGC.9729226b0ea16276c8820814389accb2?pid=1.7&rurl=https%3a%2f%2fteincu.com%2fimg%2fskeleton-loading.gif&ehk=t84WZi0JxuxVulE%2bJYXQkxN5Qf%2bV%2fQntoFuwYOKOQwM%3d"
+                      alt="Loading"
+                    />
+                    <img
+                      style={{ width: "19.5vmax" }}
+                      src="https://www.bing.com/th/id/OGC.9729226b0ea16276c8820814389accb2?pid=1.7&rurl=https%3a%2f%2fteincu.com%2fimg%2fskeleton-loading.gif&ehk=t84WZi0JxuxVulE%2bJYXQkxN5Qf%2bV%2fQntoFuwYOKOQwM%3d"
+                      alt="Loading"
+                    />
+                    <img
+                      style={{ width: "19.5vmax" }}
+                      src="https://www.bing.com/th/id/OGC.9729226b0ea16276c8820814389accb2?pid=1.7&rurl=https%3a%2f%2fteincu.com%2fimg%2fskeleton-loading.gif&ehk=t84WZi0JxuxVulE%2bJYXQkxN5Qf%2bV%2fQntoFuwYOKOQwM%3d"
+                      alt="Loading"
+                    />
+                    <img
+                      style={{ width: "19.5vmax" }}
+                      src="https://www.bing.com/th/id/OGC.9729226b0ea16276c8820814389accb2?pid=1.7&rurl=https%3a%2f%2fteincu.com%2fimg%2fskeleton-loading.gif&ehk=t84WZi0JxuxVulE%2bJYXQkxN5Qf%2bV%2fQntoFuwYOKOQwM%3d"
+                      alt="Loading"
+                    />
+                  </div>
+                }
+                endMessage={
+                  <p
+                    style={{
+                      textAlign: "center",
+                      margin: "1vmax",
+                      color: "grey",
+                    }}
+                  >
+                    <b>[ Nothing more to load ]</b>
+                  </p>
+                }
               >
-                <b>[ Nothing more to load ]</b>
-              </p>
-            }
-          >
-            {/* Render products */}
-            <div className="pros">
-              {Allproducts &&
-                Allproducts[0] &&
-                Allproducts.map((product) => (
-                  <ProductCard
-                    key={product?._id}
-                    product={product}
-                    rating={product.ratings}
-                  />
-                ))}
-            </div>
-          </InfiniteScroll>
+                {/* Render products */}
+                <div className="pros">
+                  {Allproducts &&
+                    Allproducts[0] &&
+                    Allproducts.map((product) => (
+                      <ProductCard
+                        key={product?._id}
+                        product={product}
+                        rating={product?.ratings}
+                      />
+                    ))}
+                </div>
+              </InfiniteScroll>
+            </>
+          )}
         </div>
       </div>
     </>

@@ -13,7 +13,7 @@ const CartItemCard = ({ item, removeCartItem, userId }) => {
           {item.name.slice(0, 15)}
           {item.name.length > 15 ? "..." : ""}
         </Link>
-        <span>{`Price: ₹${item.price[0]}`}</span>
+        <span>{`Price: ₹${item.price[1]}`}</span>
         <p
           onClick={() =>
             dispatch(

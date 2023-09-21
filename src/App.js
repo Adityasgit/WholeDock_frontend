@@ -24,14 +24,17 @@ import Payment from "./component/layout/order/Payment.jsx";
 import PaymentSuccess from "./component/layout/order/PaymentSuccess.jsx";
 import MyOrders from "./component/layout/order/MyOrders.jsx";
 import OrderDetails from "./component/layout/order/OrderDetails.jsx";
-import AdminProducts from "./component/layout/order/AdminProducts.jsx";
+import AdminProducts from "./component/layout/Admin/AdminProducts.jsx";
+import UpdateProduct from "./component/layout/Admin/UpdateProduct.jsx";
 
-import axios from "axios";
-
+// import axios from "axios";
+import { store } from "./store";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import Loader from "./component/layout/utils/Loader";
 import AdminDash from "./component/layout/Admin/AdminDash";
+import { loadUser } from "./actions/userAction";
+import Newproduct from "./component/layout/Admin/Newproduct";
 const stripePromise = loadStripe(
   "pk_test_51NnNOvSFuTHP5molcpAQuWNXU5TOls5mRUcwxM2pMtCrzISqN1n5S2Cy8kl2iPKhgSXPui6zXZmdwJqPZZgsfTcn008bgRrpF3"
 );
@@ -51,7 +54,7 @@ function App() {
         families: ["Roboto", "Droid Sans", "Chilanka"],
       },
     });
-
+    store.dispatch(loadUser());
     // getStripeApiKey();
   }, []);
 
@@ -99,8 +102,9 @@ function App() {
           <Route exact path="/order/:id" element={<OrderDetails />} />
 
           <Route exact path="admin/dashboard" element={<AdminDash />} />
-
           <Route exact path="admin/products" element={<AdminProducts />} />
+          <Route exact path="admin/product" element={<Newproduct />} />
+          <Route exact path="admin/product/:id" element={<UpdateProduct />} />
         </Routes>
       </ButtonState>
     </Router>

@@ -4,16 +4,32 @@ import { Typography } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import { Doughnut, Line } from "react-chartjs-2";
 import { Chart as ChartJS, registerables } from "chart.js";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getAdminProducts } from "../../../actions/productAction.js";
 
 const AdminDash = () => {
-  const { user } = useSelector((state) => state.user);
+  let outofstock = 0;
+  const { products } = useSelector((state) => state.products);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getAdminProducts());
+  }, [dispatch]);
+  products &&
+    products.forEach((item) => {
+      if (item.stock === 0) {
+        outofstock += 1;
+      }
+    });
+  const { user, isAuthenticated } = useSelector((state) => state.user);
   const navigate = useNavigate();
   useEffect(() => {
-    if (user.user.role !== "admin") {
+    if (!isAuthenticated) {
+      navigate("/login");
+    }
+    if (user?.user?.role !== "admin") {
       navigate("/");
     }
-  }, [navigate, user]);
+  }, [navigate, user, isAuthenticated]);
   ChartJS.register(...registerables);
 
   const linechart = {
@@ -33,7 +49,7 @@ const AdminDash = () => {
       {
         backgroundColor: [`red`, `green`],
         hoverBackgroundColor: [`darkred`, `darkgreen`],
-        data: [2, 10],
+        data: [outofstock, products.length - outofstock],
       },
     ],
   };
@@ -67,7 +83,7 @@ const AdminDash = () => {
             <div className="dashsummaryb2">
               <Link to="/admin/products">
                 <p>Product</p>
-                <p>50</p>
+                <p>{products && products.length}</p>
               </Link>
               <Link to="/admin/orders">
                 <p>Orders</p>

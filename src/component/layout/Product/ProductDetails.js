@@ -103,9 +103,9 @@ const ProductDetails = () => {
                     product.images.map((item, i) => (
                       <img
                         className="CarouselImage"
-                        src="https://m.media-amazon.com/images/I/81G4oZdPIgL._UY879_.jpg"
+                        src={item.url}
                         alt={`${i} Slide`}
-                        key={item.id}
+                        key={item.public_id}
                       />
                     ))}
                 </Carousel>
@@ -138,7 +138,7 @@ const ProductDetails = () => {
                 </div>
                 <div className="detail-3">
                   <h1>
-                    ₹{pp[0]}{" "}
+                    ₹{user?.user?.role === "user" ? pp[1] : pp[0]}{" "}
                     <span>
                       M.R.P: <del>{product.MRP}</del>
                     </span>

@@ -1,5 +1,6 @@
 .sidebar {
   padding: 4vmax 0;
+  padding-bottom: 0;
   background-color: white;
   display: flex;
   flex-direction: column;
@@ -96,4 +97,51 @@
 .dotchart {
   width: 30vmax;
   margin: auto;
+}
+.newproductcontainer > form {
+  display: flex;
+  flex-direction: row;
+  width: 80%;
+  margin: auto;
+}
+.newproductcontainer > form > div {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+}
+.newproductcontainer > form > div > div {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 1vmin;
+  position: relative;
+}
+.newproductcontainer > form > div > div > input,
+.newproductcontainer textarea,
+.newproductcontainer select {
+  width: 20vmax;
+  max-width: 20vmax;
+  min-width: 20vmax;
+  max-height: 10vmax;
+  padding: 1vmax 4vmax;
+  padding-right: 1vmax;
+}
+.newproductcontainer > form > div > div > svg {
+  position: absolute;
+  left: 0;
+  transform: translateX(1vmax);
+}
+#imagefileoutput {
+  max-width: 20vmax;
+  height: 10vmax;
+  overflow: scroll;
+}
+#imagefileoutput > img {
+  width: 8vmax;
+  object-fit: contain;
+  height: 100%;
+}
+#imagefileinput > input::file-selector-button {
+  width: 10vmax;
 }

@@ -11,7 +11,7 @@ const OrderDetails = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const params = useParams();
-  const { isAuthenticated } = useSelector((state) => state.user);
+  const { isAuthenticated, user } = useSelector((state) => state.user);
   useEffect(() => {
     if (isAuthenticated === false || !isAuthenticated) {
       navigate("/login");
@@ -169,7 +169,7 @@ const OrderDetails = () => {
                     order.orderItems.map((item) => (
                       <div key={item.product}>
                         <img
-                          src="https://rukminim2.flixcart.com/image/612/612/xif0q/t-shirt/q/2/i/m-s-r-b-w-farbot-original-imagjuxy9kn5qyam.jpeg?q=70"
+                          src={item.images[0].url}
                           alt={item.name}
                           style={{ width: "4vmax" }}
                         />
@@ -181,7 +181,12 @@ const OrderDetails = () => {
                         </Link>
                         <span>
                           {item.quantity} X {item.price[0]} ={" "}
-                          <b>₹{item.price[0] * item.quantity}</b>
+                          <b>
+                            ₹
+                            {(user?.user?.role === "user"
+                              ? item.price[1]
+                              : item.price[0]) * item.quantity}
+                          </b>
                         </span>
                       </div>
                     ))}
