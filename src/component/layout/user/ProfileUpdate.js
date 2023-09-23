@@ -12,6 +12,7 @@ import {
 import { UPDATE_PROFILE_RESET } from "../../../constants/userConstants";
 
 const ProfileUpdate = () => {
+  // Dispatch and Navigation
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -26,7 +27,7 @@ const ProfileUpdate = () => {
 
   // Check if user is authenticated
   useEffect(() => {
-    if (!isAuthenticated) {
+    if (isAuthenticated && isAuthenticated === false) {
       navigate("/login");
     }
   }, [isAuthenticated, navigate]);
@@ -49,10 +50,10 @@ const ProfileUpdate = () => {
       try {
         const avatarDataURL = await readFileAsDataURL(file);
         setAvatarPreview(avatarDataURL);
+        setAvatar(avatarDataURL);
       } catch (error) {
         console.error("Error reading avatar file:", error);
       }
-      setAvatar(file);
     }
   }
 
@@ -72,27 +73,30 @@ const ProfileUpdate = () => {
       reader.readAsDataURL(file);
     });
   }
+
   useEffect(() => {
-    if (user) {
-      setName(user.name);
-      setEmail(user.email);
+    if (user?.user) {
+      setName(user.user?.name);
+      setEmail(user.user?.email);
     }
-    if (user?.avatar) {
-      setAvatarPreview(user.avatar.url);
+    if (user?.user?.avatar) {
+      setAvatarPreview(user.user.avatar.url);
+      setAvatar(user.user.avatar.url);
     }
   }, [user]);
+
   // Update user profile and handle success/error
   useEffect(() => {
     if (error) {
       alert(error);
       dispatch(clearErrors());
     }
-    if (user.user || user) {
-      setName(user.user?.name || user.name);
-      setEmail(user.user?.email || user.email);
+    if (user?.user) {
+      setName(user.user?.name);
+      setEmail(user.user?.email);
     }
-    if (user.user?.avatar || user?.avatar) {
-      setAvatarPreview(user.user?.avatar.url || user.avatar.url);
+    if (user?.user?.avatar) {
+      setAvatarPreview(user.user?.avatar.url);
     }
     if (isUpdated) {
       alert("Profile Updated Successfully");

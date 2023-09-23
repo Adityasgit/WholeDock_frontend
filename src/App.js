@@ -2,7 +2,7 @@ import "./App.css";
 import Header from "./component/layout/Header/Header.js";
 import ButtonState from "../src/context/ButtonState";
 import WebFont from "webfontloader";
-import React, { useState } from "react";
+import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "./component/layout/Home/Home";
 import Coupons from "./component/layout/Home/Coupons.js";
@@ -26,6 +26,9 @@ import MyOrders from "./component/layout/order/MyOrders.jsx";
 import OrderDetails from "./component/layout/order/OrderDetails.jsx";
 import AdminProducts from "./component/layout/Admin/AdminProducts.jsx";
 import UpdateProduct from "./component/layout/Admin/UpdateProduct.jsx";
+import UpdateOrder from "./component/layout/Admin/UpdateOrder.jsx";
+import AdminOrders from "./component/layout/Admin/AdminOrders.jsx";
+import AdminUsers from "./component/layout/Admin/AdminUsers.jsx";
 
 // import axios from "axios";
 import { store } from "./store";
@@ -101,10 +104,13 @@ function App() {
 
           <Route exact path="/order/:id" element={<OrderDetails />} />
 
-          <Route exact path="admin/dashboard" element={<AdminDash />} />
-          <Route exact path="admin/products" element={<AdminProducts />} />
-          <Route exact path="admin/product" element={<Newproduct />} />
-          <Route exact path="admin/product/:id" element={<UpdateProduct />} />
+          <Route exact path="/admin/dashboard" element={<AdminDash />} />
+          <Route exact path="/admin/products" element={<AdminProducts />} />
+          <Route exact path="/admin/product" element={<Newproduct />} />
+          <Route exact path="/admin/product/:id" element={<UpdateProduct />} />
+          <Route exact path="/admin/orders" element={<AdminOrders />} />
+          <Route exact path="/admin/order/:id" element={<UpdateOrder />} />
+          <Route exact path="/admin/users" element={<AdminUsers />} />
         </Routes>
       </ButtonState>
     </Router>

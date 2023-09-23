@@ -13,23 +13,29 @@ const PasswordForgot = () => {
   );
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const forgotSubmit = (e) => {
     e.preventDefault();
-
     dispatch(forgotPassword({ email: email }));
   };
+
   useEffect(() => {
+    // Handle error message and clear errors
     if (error) {
       alert(error);
       dispatch(clearErrors());
     }
+
+    // Show success message on successful password reset
     if (message) {
       alert(message);
     }
   }, [dispatch, error, navigate, message]);
+
   return (
     <>
       {loading ? (
+        // Display loader while loading
         <Loader />
       ) : (
         <div

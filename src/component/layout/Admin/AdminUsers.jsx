@@ -1,28 +1,37 @@
 import React, { useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  clearErrors,
-  getAdminProducts,
-  deleteProduct,
-} from "../../../actions/productAction";
+import { clearErrors } from "../../../actions/productAction";
+import { getAllUsers, deleteUser } from "../../../actions/userAction";
 import { Button } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import Loader from "../utils/Loader";
 import { Edit, Delete } from "@mui/icons-material";
 import Sidebar from "./Sidebar";
 import "./Admin.css";
-import { DELETE_PRODUCT_RESET } from "../../../constants/productConstants";
-const AdminProducts = () => {
+import { DELETE_USER_RESET } from "../../../constants/userConstants";
+const AdminUsers = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user, isAuthenticated } = useSelector((state) => state.user);
-  const { error, products, loading } = useSelector((state) => state.products);
+  const { users, error, loading } = useSelector((state) => state.allUsers);
   const {
     error: deleteError,
     isDeleted,
+    message,
     loading: deleteLoading,
-  } = useSelector((state) => state.product);
-  const dispatch = useDispatch();
+  } = useSelector((state) => state.users);
+  useEffect(() => {
+    if (isAuthenticated && isAuthenticated === false) {
+      navigate("/login");
+    }
+    if (user && user?.user?.role !== "admin") {
+      navigate("/");
+    }
+  }, [navigate, user, isAuthenticated]);
+  const deleteUserHandler = (id) => {
+    dispatch(deleteUser(id));
+  };
   useEffect(() => {
     if (error) {
       alert(error);
@@ -33,60 +42,31 @@ const AdminProducts = () => {
       dispatch(clearErrors());
     }
     if (isDeleted) {
-      alert("Deleted successfully");
-      navigate("/admin/dashboard");
-      dispatch({ type: DELETE_PRODUCT_RESET });
+      alert(message);
+      navigate("/admin/users");
+      dispatch({ type: DELETE_USER_RESET });
     }
-    dispatch(getAdminProducts());
-  }, [dispatch, error, isDeleted, navigate, deleteError]);
-
-  useEffect(() => {
-    if (isAuthenticated && isAuthenticated === false) {
-      navigate("/login");
-    }
-    if (user && user?.user?.role !== "admin") {
-      navigate("/");
-    }
-  }, [navigate, user, isAuthenticated]);
+    dispatch(getAllUsers());
+  }, [dispatch, error, isDeleted, navigate, deleteError, message]);
 
   const cols = [
-    { field: "id", headerName: "Product ID", minwidth: 150, flex: 0.5 },
-    { field: "name", headerName: "Name", minwidth: 100, flex: 0.5 },
+    { field: "id", headerName: "User ID", minwidth: 120, flex: 0.8 },
+    { field: "email", headerName: "Email", minwidth: 150, flex: 1 },
+
     {
-      field: "priority",
-      headerName: "Priority",
+      field: "name",
+      headerName: "Name",
       minwidth: 100,
       flex: 0.3,
-      type: "number",
     },
+
     {
-      field: "stock",
-      headerName: "Stock",
+      field: "role",
+      headerName: "Role",
       minwidth: 100,
       flex: 0.3,
-      type: "number",
     },
-    {
-      field: "reseller",
-      headerName: "Reseller",
-      minwidth: 100,
-      flex: 0.3,
-      type: "number",
-    },
-    {
-      field: "customer",
-      headerName: "Customer",
-      minwidth: 100,
-      flex: 0.3,
-      type: "number",
-    },
-    {
-      field: "MRP",
-      headerName: "MRP",
-      minwidth: 100,
-      flex: 0.3,
-      type: "number",
-    },
+
     {
       field: "action",
       headerName: "Action",
@@ -99,13 +79,13 @@ const AdminProducts = () => {
           <>
             {!deleteLoading === true ? (
               <>
-                <Link to={`/admin/product/${params.row.id}`}>
+                <Link to={`/admin/user/${params.row.id}`}>
                   <Edit />
                 </Link>
                 <Button
                   disabled={deleteLoading === true}
                   onClick={() => {
-                    deleteProductHandler(params.row.id);
+                    deleteUserHandler(params.row.id);
                   }}
                 >
                   <Delete />
@@ -121,32 +101,21 @@ const AdminProducts = () => {
   ];
 
   const rows = [];
-  products &&
-    products.forEach((item) => {
+  users &&
+    users?.forEach((item) => {
       rows.push({
         id: item._id,
+        email: item.email,
         name: item.name,
-        priority: item.priority,
-        MRP: item.MRP,
-        stock: item.stock,
-        reseller: item.price[0],
-        customer: item.price[1],
+        role: item.role,
       });
     });
-  const deleteProductHandler = (id) => {
-    dispatch(deleteProduct(id));
-  };
   return (
     <>
       {" "}
       <div
         className="page"
-        style={{
-          alignItems: "start",
-          justifyContent: "start",
-          display: "flex",
-          width: "100vw",
-        }}
+        style={{ alignItems: "start", justifyContent: "start" }}
       >
         <div
           style={{
@@ -173,9 +142,8 @@ const AdminProducts = () => {
                     fontWeight: "900",
                   }}
                 >
-                  ALL PRODUCTS
+                  ALL USERS
                 </h1>
-
                 <DataGrid
                   rows={rows}
                   columns={cols}
@@ -201,4 +169,4 @@ const AdminProducts = () => {
   );
 };
 
-export default AdminProducts;
+export default AdminUsers;

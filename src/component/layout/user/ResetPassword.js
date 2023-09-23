@@ -8,15 +8,21 @@ import LockIcon from "@mui/icons-material/Lock";
 import Loader from "../utils/Loader";
 import { useDispatch, useSelector } from "react-redux";
 import { resetPassword, clearErrors } from "../../../actions/userAction";
+
 const ResetPassword = () => {
+  // Initialize state and dispatch
+  const [password, setpassword] = useState("");
+  const [confirmpassword, setConfirmpassword] = useState("");
   const dispatch = useDispatch();
   const params = useParams();
+  const navigate = useNavigate();
+
+  // Extract data from Redux store
   const { success, error, loading } = useSelector(
     (state) => state.forgotPassword
   );
-  const [password, setpassword] = useState("");
-  const [confirmpassword, setConfirmpassword] = useState("");
 
+  // Handle form submission
   const changeSubmit = (e) => {
     e.preventDefault();
     let Myform = {
@@ -26,13 +32,15 @@ const ResetPassword = () => {
 
     dispatch(resetPassword(params.token, Myform));
   };
-  const navigate = useNavigate();
 
   useEffect(() => {
+    // Handle error message and clear errors
     if (error) {
       alert(error);
       dispatch(clearErrors());
     }
+
+    // Notify user on successful password update
     if (success) {
       alert("Password updated successfully");
       navigate("/login");
@@ -42,8 +50,10 @@ const ResetPassword = () => {
   return (
     <>
       {loading ? (
+        // Show loader while waiting for the operation to complete
         <Loader />
       ) : (
+        // Render form when not loading
         <div
           style={{
             display: "flex",

@@ -16,11 +16,16 @@ import {
 } from "./reducers/productReducer";
 import {
   forgotPasswordReducer,
+  allUsersReducer,
   profileReducer,
+  usersReducer,
   userReducer,
+  userDetailsReducer,
 } from "./reducers/userReducer";
 import { cartReducer } from "./reducers/cartReducer";
 import {
+  OrdersReducer,
+  allOrdersReducer,
   myOrdersReducer,
   newOrderReducer,
   orderDetailsReducer,
@@ -39,6 +44,11 @@ const reducer = combineReducers({
   newReview: newReviewReducer,
   newProduct: newProductReducer,
   product: productReducer,
+  allOrders: allOrdersReducer,
+  order: OrdersReducer,
+  allUsers: allUsersReducer,
+  users: usersReducer,
+  userDetails: userDetailsReducer,
 });
 
 // Configure redux-persist

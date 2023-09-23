@@ -17,37 +17,50 @@ import {
   Rating,
 } from "@mui/material";
 import { NEW_REVIEW_RESET } from "../../../constants/productConstants";
+
 const ProductDetails = () => {
   const params = useParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  // Fetch product details from the Redux store
   const { loading, product, error } = useSelector(
     (state) => state.productDetails
   );
+
+  // Fetch user details and review submission status from the Redux store
   const { success, error: reviewError } = useSelector(
     (state) => state.newReview
   );
   const { isAuthenticated, user } = useSelector((state) => state.user);
   const userId = user?.user?.user?._id || user?.user?._id;
+
   const [quantity, setQuantity] = useState(1);
+  const [open, setOpen] = useState(false);
+  const [rating, setRating] = useState(0);
+  const [comment, setComment] = useState("");
+
+  // Increase quantity in cart
   const incQuantity = () => {
     if (quantity >= product.stock || quantity >= 15) return;
     const qty = quantity + 1;
     setQuantity(qty);
   };
+
+  // Decrease quantity in cart
   const decQuantity = () => {
     if (quantity <= 1) return;
     const qty = quantity - 1;
     setQuantity(qty);
   };
-  const [open, setOpen] = useState(false);
-  const [rating, setRating] = useState(0);
-  const [comment, setComment] = useState("");
 
-  const submitReviewTogge = () => {
-    open ? setOpen(false) : setOpen(true);
+  // Toggle review submission dialog
+  const submitReviewToggle = () => {
+    setOpen(!open);
   };
-  const navigate = useNavigate();
-  const reviewsubmitHandler = () => {
+
+  // Handle review submission
+  const reviewSubmitHandler = () => {
     const newForm = new FormData();
     newForm.append("rating", rating);
     newForm.append("comment", comment);
@@ -56,7 +69,9 @@ const ProductDetails = () => {
     dispatch(newReview(newForm));
     setOpen(false);
   };
-  const addtocart = (e) => {
+
+  // Add product to cart
+  const addToCart = (e) => {
     e.preventDefault();
     if (!isAuthenticated) {
       navigate("/login");
@@ -65,6 +80,7 @@ const ProductDetails = () => {
     dispatch(addItemToCart(userId, params.id, quantity));
     alert("Item added to cart");
   };
+
   useEffect(() => {
     if (error) {
       dispatch(clearErrors());
@@ -82,13 +98,16 @@ const ProductDetails = () => {
     }
     dispatch(getProductDetails(params.id));
   }, [dispatch, params.id, error, reviewError, success]);
+
   const options = {
     size: "medium",
-    value: product.ratings,
+    value: product?.ratings,
     readOnly: true,
     precision: 0.5,
   };
+
   const pp = product?.price || [-1, -1];
+
   return (
     <>
       {loading ? (
@@ -96,7 +115,9 @@ const ProductDetails = () => {
       ) : (
         product && (
           <>
+            {/* Product Details Section */}
             <div className="product-details">
+              {/* Carousel for Product Images */}
               <div>
                 <Carousel>
                   {product.images &&
@@ -110,6 +131,8 @@ const ProductDetails = () => {
                     ))}
                 </Carousel>
               </div>
+
+              {/* Product Information */}
               <div>
                 <div className="detail-1" style={{ width: "100%" }}>
                   <h2
@@ -130,12 +153,15 @@ const ProductDetails = () => {
                   <div className="detail-1-1">Product #{product._id}</div>
                 </div>
 
+                {/* Product Rating */}
                 <div className="detail-2">
                   <Rating {...options} />{" "}
                   <span style={{ font: "200 1.1vmax cursive" }}>
                     ({product.numofReviews} Reviews)
                   </span>
                 </div>
+
+                {/* Product Pricing and Add to Cart */}
                 <div className="detail-3">
                   <h1>
                     ₹{user?.user?.role === "user" ? pp[1] : pp[0]}{" "}
@@ -150,28 +176,32 @@ const ProductDetails = () => {
                       <input type="number" value={quantity} readOnly />
                       <button onClick={incQuantity}>+</button>
                     </div>
-                    <button disabled={product.stock < 1} onClick={addtocart}>
-                      Add to cart
+                    <button disabled={product.stock < 1} onClick={addToCart}>
+                      Add to Cart
                     </button>
                   </div>
                   <p>
                     Status:
                     <b
                       style={
-                        product.stock !== 0
+                        product.stock > 0
                           ? { color: "green" }
                           : { color: "red" }
                       }
                     >
-                      {product.stock !== 0 ? " In Stock" : " Out of Stock"}
+                      {product.stock > 0 ? " In Stock" : " Out of Stock"}
                     </b>
                   </p>
                 </div>
-                <button onClick={submitReviewTogge} className="submitReview">
+
+                {/* Submit Review Button */}
+                <button onClick={submitReviewToggle} className="submitReview">
                   Submit a Review
                 </button>
               </div>
             </div>
+
+            {/* Product Description */}
             <fieldset>
               <legend className="des">Description:</legend>
               <div className="description">
@@ -182,11 +212,15 @@ const ProductDetails = () => {
               </div>
               <h4>Expiring on: {product.ExpiresOn}</h4>
             </fieldset>
+
+            {/* Reviews Section */}
             <div className="re">Reviews</div>
+
+            {/* Review Submission Dialog */}
             <Dialog
               aria-labelledby="simple-dialog-title"
               open={open}
-              onClose={submitReviewTogge}
+              onClose={submitReviewToggle}
             >
               <DialogTitle>Submit Review</DialogTitle>
               <DialogContent
@@ -213,13 +247,15 @@ const ProductDetails = () => {
                   onChange={(e) => setComment(e.target.value)}
                 />
                 <DialogActions>
-                  <Button onClick={submitReviewTogge} style={{ color: "red" }}>
+                  <Button onClick={submitReviewToggle} style={{ color: "red" }}>
                     Cancel
                   </Button>
-                  <Button onClick={reviewsubmitHandler}>Submit</Button>
+                  <Button onClick={reviewSubmitHandler}>Submit</Button>
                 </DialogActions>
               </DialogContent>
             </Dialog>
+
+            {/* Reviews */}
             <div className="reviews">
               {product.reviews && product.reviews[0] ? (
                 product.reviews.map((review) => <ReviewCard review={review} />)

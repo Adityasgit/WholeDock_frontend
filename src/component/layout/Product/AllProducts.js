@@ -11,7 +11,6 @@ import { useParams } from "react-router-dom";
 import Slider from "@mui/material-next/Slider";
 import { Typography } from "@mui/material";
 import { FaStar, FaRegStar } from "react-icons/fa";
-// import loader from "../../../images/skeleton-loading.gif";
 // Define star icons for ratings
 
 // Function to display the value for Slider component

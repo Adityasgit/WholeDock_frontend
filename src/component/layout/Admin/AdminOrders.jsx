@@ -1,27 +1,24 @@
 import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  clearErrors,
-  getAdminProducts,
-  deleteProduct,
-} from "../../../actions/productAction";
+import { clearErrors } from "../../../actions/productAction";
 import { Button } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import Loader from "../utils/Loader";
 import { Edit, Delete } from "@mui/icons-material";
 import Sidebar from "./Sidebar";
 import "./Admin.css";
-import { DELETE_PRODUCT_RESET } from "../../../constants/productConstants";
-const AdminProducts = () => {
+import { deleteOrder, getAllOrders } from "../../../actions/orderAction";
+import { DELETE_ORDER_RESET } from "../../../constants/orderConstants";
+const AdminOrders = () => {
   const navigate = useNavigate();
   const { user, isAuthenticated } = useSelector((state) => state.user);
-  const { error, products, loading } = useSelector((state) => state.products);
+  const { error, orders, loading } = useSelector((state) => state.allOrders);
   const {
     error: deleteError,
     isDeleted,
     loading: deleteLoading,
-  } = useSelector((state) => state.product);
+  } = useSelector((state) => state.order);
   const dispatch = useDispatch();
   useEffect(() => {
     if (error) {
@@ -34,10 +31,10 @@ const AdminProducts = () => {
     }
     if (isDeleted) {
       alert("Deleted successfully");
-      navigate("/admin/dashboard");
-      dispatch({ type: DELETE_PRODUCT_RESET });
+      navigate("/admin/orders");
+      dispatch({ type: DELETE_ORDER_RESET });
     }
-    dispatch(getAdminProducts());
+    dispatch(getAllOrders());
   }, [dispatch, error, isDeleted, navigate, deleteError]);
 
   useEffect(() => {
@@ -50,42 +47,31 @@ const AdminProducts = () => {
   }, [navigate, user, isAuthenticated]);
 
   const cols = [
-    { field: "id", headerName: "Product ID", minwidth: 150, flex: 0.5 },
-    { field: "name", headerName: "Name", minwidth: 100, flex: 0.5 },
+    { field: "id", headerName: "Order Id", minWidth: 200, flex: 1 },
+
     {
-      field: "priority",
-      headerName: "Priority",
-      minwidth: 100,
-      flex: 0.3,
+      field: "status",
+      headerName: "Status",
+      minWidth: 100,
+      flex: 0.5,
+      cellClassName: (params) => {
+        return params.row.status === "Delivered" ? "greenColor" : "redColor";
+      },
+    },
+
+    {
+      field: "itemsQty",
+      headerName: "Items Qty",
       type: "number",
+      minWidth: 100,
+      flex: 0.5,
     },
     {
-      field: "stock",
-      headerName: "Stock",
-      minwidth: 100,
-      flex: 0.3,
+      field: "amount",
+      headerName: "Amount",
       type: "number",
-    },
-    {
-      field: "reseller",
-      headerName: "Reseller",
-      minwidth: 100,
-      flex: 0.3,
-      type: "number",
-    },
-    {
-      field: "customer",
-      headerName: "Customer",
-      minwidth: 100,
-      flex: 0.3,
-      type: "number",
-    },
-    {
-      field: "MRP",
-      headerName: "MRP",
-      minwidth: 100,
-      flex: 0.3,
-      type: "number",
+      minWidth: 100,
+      flex: 0.5,
     },
     {
       field: "action",
@@ -99,13 +85,13 @@ const AdminProducts = () => {
           <>
             {!deleteLoading === true ? (
               <>
-                <Link to={`/admin/product/${params.row.id}`}>
+                <Link to={`/admin/order/${params.row.id}`}>
                   <Edit />
                 </Link>
                 <Button
                   disabled={deleteLoading === true}
                   onClick={() => {
-                    deleteProductHandler(params.row.id);
+                    deleteOrderHandler(params.row.id);
                   }}
                 >
                   <Delete />
@@ -121,32 +107,24 @@ const AdminProducts = () => {
   ];
 
   const rows = [];
-  products &&
-    products.forEach((item) => {
+  orders &&
+    orders.forEach((item) => {
       rows.push({
         id: item._id,
-        name: item.name,
-        priority: item.priority,
-        MRP: item.MRP,
-        stock: item.stock,
-        reseller: item.price[0],
-        customer: item.price[1],
+        itemsQty: item.orderItems.length,
+        amount: item.totalPrice,
+        status: item.orderStatus,
       });
     });
-  const deleteProductHandler = (id) => {
-    dispatch(deleteProduct(id));
+  const deleteOrderHandler = (id) => {
+    dispatch(deleteOrder(id));
   };
   return (
     <>
       {" "}
       <div
         className="page"
-        style={{
-          alignItems: "start",
-          justifyContent: "start",
-          display: "flex",
-          width: "100vw",
-        }}
+        style={{ alignItems: "start", justifyContent: "start" }}
       >
         <div
           style={{
@@ -173,7 +151,7 @@ const AdminProducts = () => {
                     fontWeight: "900",
                   }}
                 >
-                  ALL PRODUCTS
+                  ALL ORDERS
                 </h1>
 
                 <DataGrid
@@ -201,4 +179,4 @@ const AdminProducts = () => {
   );
 };
 
-export default AdminProducts;
+export default AdminOrders;

@@ -10,9 +10,13 @@ import Loader from "../utils/Loader";
 import profilePng from "../../../images/profilepng.png";
 import { useDispatch, useSelector } from "react-redux";
 import { login, clearErrors, register } from "../../../actions/userAction";
+import { render } from "react-dom";
+
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  // State variables
   const { loading, error, isAuthenticated } = useSelector(
     (state) => state.user
   );
@@ -31,13 +35,18 @@ const Login = () => {
   const [avatar, setAvatar] = useState(profilePng);
   const [avatarPreview, setAvatarPreview] = useState(profilePng);
   const { name, email, password } = user;
+
+  // Function to handle login form submission
   const loginSubmit = (e) => {
     e.preventDefault();
     dispatch(login(loginemail, loginpassword));
-    if (isAuthenticated) {
+
+    if (isAuthenticated === true) {
       navigate(redirect);
     }
   };
+
+  // Function to handle sign up form submission
   const signUpSubmit = (e) => {
     e.preventDefault();
     const Myform = new FormData();
@@ -47,41 +56,40 @@ const Login = () => {
     Myform.append("avatar", avatar);
     dispatch(register(Myform));
   };
+
+  // Function to handle avatar file change
   async function handleAvatarChange(e) {
     if (e?.target?.name === "avatar") {
       const file = e.target.files[0];
 
       if (file) {
-        setAvatar(file);
         try {
-          const avatarDataURL = await readFileAsDataURL(file);
-          setAvatarPreview(avatarDataURL);
+          const reader = new FileReader();
+
+          reader.onload = () => {
+            if (reader.readyState === 2) {
+              setAvatar(reader.result);
+              setAvatarPreview(reader.result);
+            }
+          };
+          reader.readAsDataURL(file);
         } catch (error) {
           console.error("Error reading avatar file:", error);
         }
       }
     }
   }
-  function readFileAsDataURL(file) {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
 
-      reader.onload = (event) => {
-        resolve(event.target.result);
-      };
-
-      reader.onerror = (event) => {
-        reject(event.target.error);
-      };
-
-      reader.readAsDataURL(file);
-    });
-  }
+  // Function to handle input changes in sign up form
   const registerDataChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
+
+  // Redirect path after successful login/signup
   const redirect = "/account";
+
   useEffect(() => {
+    // Handle errors
     if (error) {
       alert(error + error?.path);
       dispatch(clearErrors());
@@ -95,11 +103,15 @@ const Login = () => {
       setAvatar(profilePng);
       setAvatarPreview(profilePng);
     }
-    if (isAuthenticated) {
+
+    // Redirect to account page after successful login
+    if (isAuthenticated === true) {
       navigate(redirect);
     }
   }, [dispatch, error, isAuthenticated, navigate, redirect]);
+
   useEffect(() => {
+    // Delayed animations
     setTimeout(() => {
       setImg(true);
     }, 500);
@@ -110,14 +122,13 @@ const Login = () => {
       setText2(true);
     }, 1000);
   }, []);
+
   return (
     <>
-      {" "}
       {loading ? (
         <Loader />
       ) : (
         <>
-          {" "}
           <div
             className="loginsignup"
             style={{

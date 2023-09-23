@@ -1,0 +1,66 @@
+.dashboard {
+  width: 100%;
+}
+.newProductContainer {
+  padding: 2vmax;
+}
+.confirmOrderPage {
+  display: grid;
+  grid-template-columns: 4fr 2fr;
+  place-content: center;
+}
+.confirmOrderPage > div > div {
+  width: 90%;
+}
+.confirmOrderPage img {
+  width: 8vmax;
+  height: 10vmax;
+  object-fit: contain;
+}
+.confirmshippingArea > p,
+.confirmCartItems > p {
+  font: 600 1.8vmax cursive;
+}
+.orderDetailsContainerBox > div {
+  display: flex;
+  width: 100%;
+  padding: 1vmax;
+}
+.orderDetailsContainerBox > div > p {
+  width: 10vmax;
+  font-weight: bold;
+}
+.orderDetailsContainerBox > div > span {
+  color: rgba(0, 0, 0, 0.633);
+  word-wrap: break-word;
+  max-width: 70%;
+}
+.confirmCartItemsContainer {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+.confirmCartItemsContainer > div {
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.updateOrderForm select {
+  width: 20vmax;
+  padding: 1vmax 4vmax;
+  padding-right: 1vmax;
+}
+.updateOrderForm > div > svg {
+  position: absolute;
+  transform: translateX(1vmax);
+}
+.updateOrderForm > div {
+  display: flex;
+  align-items: center;
+  padding: 2vmax;
+}
+.updateOrderForm button {
+  width: 100%;
+}

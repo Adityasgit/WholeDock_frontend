@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import CheckoutSteps from "./CheckoutSteps";
 import { Typography } from "@mui/material";
-
+import "./order.css";
 const ConfirmOrder = () => {
   const { isAuthenticated, user } = useSelector((state) => state.user);
   const { cart } = useSelector((state) => state);

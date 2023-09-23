@@ -14,13 +14,17 @@ import {
   loadUser,
 } from "../../../actions/userAction";
 import { UPDATE_PASSWORD_RESET } from "../../../constants/userConstants";
+
 const PasswordUpdate = () => {
   const dispatch = useDispatch();
   const { isAuthenticated } = useSelector((state) => state.user);
   const { isUpdated, error, loading } = useSelector((state) => state.profile);
+
+  // State variables for old, new, and confirm passwords
   const [oldpassword, setOldpassword] = useState("");
   const [newpassword, setNewpassword] = useState("");
   const [confirmpassword, setConfirmpassword] = useState("");
+
   const changeSubmit = (e) => {
     e.preventDefault();
     let Myform = {
@@ -31,17 +35,24 @@ const PasswordUpdate = () => {
 
     dispatch(updatePassword(Myform));
   };
+
   const navigate = useNavigate();
+
   useEffect(() => {
-    if (!isAuthenticated) {
+    // Redirect to login if user is not authenticated
+    if (isAuthenticated && isAuthenticated === false) {
       navigate("/login");
     }
   }, [isAuthenticated, navigate]);
+
   useEffect(() => {
+    // Handle error message and clear errors
     if (error) {
       alert(error);
       dispatch(clearErrors());
     }
+
+    // Notify user on successful password update
     if (isUpdated) {
       alert("updated successfully");
       dispatch(loadUser());
@@ -53,6 +64,7 @@ const PasswordUpdate = () => {
   return (
     <>
       {loading ? (
+        // Display loader while loading user data
         <Loader />
       ) : (
         <div

@@ -12,7 +12,7 @@ const ButtonState = (props) => {
   };
   const sortinit = {
     sort: {
-      val: "_id",
+      val: "priority,_id",
     },
   };
   const [sort, setsort] = useState(sortinit);
@@ -32,7 +32,7 @@ const ButtonState = (props) => {
     setcategory(val);
   };
   const [account, setaccount] = useState(false);
-  const setAccount = (val) => {
+  const setAccount = () => {
     setaccount(!account);
   };
   return (

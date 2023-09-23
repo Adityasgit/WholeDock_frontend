@@ -3,19 +3,28 @@ import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import Loader from "../utils/Loader";
 import profilePng from "../../../images/profilepng.png";
+
 const Profile = () => {
+  // Get user data from Redux store
   let { user, isAuthenticated, loading } = useSelector((state) => state.user);
-  user = user?.user || user;
-  const img = user.avatar.url || user.user.avatar.url;
+
+  // Get user avatar image URL
+  const img = user?.user?.avatar?.url;
+
+  // Initialize navigation
   const navigate = useNavigate();
+
   useEffect(() => {
-    if (isAuthenticated === false && loading === false) {
+    // Redirect to login if user is not authenticated
+    if (loading === false && isAuthenticated === false) {
       navigate("/login");
     }
   }, [navigate, isAuthenticated, loading]);
+
   return (
     <>
-      {loading && isAuthenticated ? (
+      {loading ? (
+        // Display loader while loading user data
         <Loader />
       ) : (
         <>
@@ -41,7 +50,7 @@ const Profile = () => {
                     color: "grey",
                   }}
                 >
-                  Role: {user.role}
+                  Role: {user?.user?.role}
                 </p>
               </h1>
 
@@ -66,15 +75,15 @@ const Profile = () => {
             <div className="detail">
               <div className="name">
                 <h3>Full Name</h3>
-                <p>{user.name}</p>
+                <p>{user?.user?.name}</p>
               </div>
               <div className="email">
                 <h3>Email</h3>
-                <p>{user.email}</p>
+                <p>{user?.user?.email}</p>
               </div>
               <div className="join">
                 <h3>Joined On</h3>
-                <p>{String(user.createdAt).slice(0, 10)}</p>
+                <p>{String(user?.user?.createdAt).slice(0, 10)}</p>
               </div>
               <div>
                 <Link className="link" to="/orders">
@@ -100,7 +109,7 @@ const Profile = () => {
           >
             Total Orders <br />
             <p style={{ color: "red", marginTop: "0.5vmax" }}>
-              {user.numOfOrders}
+              {user?.user?.numOfOrders}
             </p>
           </div>
         </>
