@@ -17,7 +17,10 @@ const ConfirmOrder = () => {
     navigate("/process/payment");
   };
   const subTotal = cartItems.reduce(
-    (acc, item) => acc + item.price[0] * item.quantity,
+    (acc, item) =>
+      acc +
+      (user?.user?.role === "user" ? item.price[1] : item.price[0]) *
+        item.quantity,
     0
   );
   const shippingCharges = subTotal > 500 ? 10 : 18;
@@ -100,8 +103,18 @@ const ConfirmOrder = () => {
                           {item.name.length > 15 ? `...` : ""}
                         </Link>
                         <span>
-                          {item.quantity} X ₹{item.price[0]} ={" "}
-                          <b>₹{item.quantity * item.price[0]}</b>
+                          {item.quantity} X ₹
+                          {user?.user?.role === "user"
+                            ? item.price[1]
+                            : item.price[0]}{" "}
+                          ={" "}
+                          <b>
+                            ₹
+                            {item.quantity *
+                              (user?.user?.role === "user"
+                                ? item.price[1]
+                                : item.price[0])}
+                          </b>
                         </span>
                       </div>
                     </div>

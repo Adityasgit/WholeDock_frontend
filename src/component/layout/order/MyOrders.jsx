@@ -13,7 +13,6 @@ const MyOrders = () => {
   const { loading, error, orders } = useSelector((state) => state.myOrders);
   let { user, isAuthenticated } = useSelector((state) => state.user);
   user = user?.user;
-  console.log(isAuthenticated);
   const cols = [
     { field: "id", headerName: "Order Id", minWidth: 200, flex: 1 },
 

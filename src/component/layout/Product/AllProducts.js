@@ -181,16 +181,7 @@ const AllProducts = () => {
   ]);
 
   // Company list
-  const companies = [
-    "Denver",
-    "Nivea",
-    "Lux",
-    "Astaberry",
-    "Mamaearth",
-    "Ganpati",
-    "Lotus",
-    "Lakme",
-  ];
+  const { companies } = useSelector((state) => state.controller);
 
   // Update products when new data is fetched
   useEffect(() => {

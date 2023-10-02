@@ -159,7 +159,7 @@ const UpdateProduct = () => {
 
     dispatch(updateProduct(productId, myform));
   };
-
+  const { companies } = useSelector((state) => state.controller);
   const updateproductimagesChangeHandler = (e) => {
     const files = Array.from(e.target.files);
     setImages([]);
@@ -260,13 +260,15 @@ const UpdateProduct = () => {
                 </div>
                 <div>
                   <Category />
-                  <input
-                    type="text"
-                    placeholder="Product Company"
-                    required
+                  <select
                     value={company}
                     onChange={(e) => setCompany(e.target.value)}
-                  />
+                  >
+                    <option value="">Product Company</option>
+                    {companies.map((i) => (
+                      <option value={i}>{i}</option>
+                    ))}
+                  </select>
                 </div>
                 <div>
                   <DateRange />

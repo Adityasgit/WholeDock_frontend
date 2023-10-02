@@ -13,6 +13,7 @@ import {
 } from "@mui/icons-material";
 import { TreeItem, TreeView } from "@mui/x-tree-view";
 import { Link } from "react-router-dom";
+import { BsController } from "react-icons/bs";
 const Sidebar = () => {
   return (
     <div className="sidebar">
@@ -51,6 +52,11 @@ const Sidebar = () => {
       <Link to="/admin/reviews">
         <p>
           <RateReview /> Reviews
+        </p>
+      </Link>
+      <Link to="/admin/controller">
+        <p>
+          <BsController /> Controller
         </p>
       </Link>
     </div>

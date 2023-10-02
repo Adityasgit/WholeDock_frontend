@@ -180,7 +180,11 @@ const OrderDetails = () => {
                           {item.name.length > 15 && "..."}
                         </Link>
                         <span>
-                          {item.quantity} X {item.price[0]} ={" "}
+                          {item.quantity} X{" "}
+                          {user?.user?.role === "user"
+                            ? item.price[1]
+                            : item.price[0]}{" "}
+                          ={" "}
                           <b>
                             ₹
                             {(user?.user?.role === "user"

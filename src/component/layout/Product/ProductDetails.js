@@ -164,7 +164,12 @@ const ProductDetails = () => {
                 {/* Product Pricing and Add to Cart */}
                 <div className="detail-3">
                   <h1>
-                    ₹{user?.user?.role === "user" ? pp[1] : pp[0]}{" "}
+                    ₹
+                    {user
+                      ? user?.user?.role === "user"
+                        ? pp[1]
+                        : pp[0]
+                      : pp[1]}
                     <span>
                       M.R.P: <del>{product.MRP}</del>
                     </span>

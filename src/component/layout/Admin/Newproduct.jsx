@@ -97,7 +97,7 @@ const Newproduct = () => {
       })
     );
   };
-
+  const { companies } = useSelector((state) => state.controller);
   const createProductSubmitHandler = (e) => {
     e.preventDefault();
     const myform = new FormData();
@@ -225,13 +225,16 @@ const Newproduct = () => {
                 </div>
                 <div>
                   <Category />
-                  <input
-                    type="text"
-                    placeholder="Product Company"
-                    required
+
+                  <select
                     value={company}
                     onChange={(e) => setCompany(e.target.value)}
-                  />
+                  >
+                    <option value="">Product Company</option>
+                    {companies.map((i) => (
+                      <option value={i}>{i}</option>
+                    ))}
+                  </select>
                 </div>
                 <div>
                   <DateRange />

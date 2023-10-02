@@ -41,6 +41,7 @@ import AdminDash from "./component/layout/Admin/AdminDash";
 import { loadUser } from "./actions/userAction";
 import Newproduct from "./component/layout/Admin/Newproduct";
 import NotFound from "./component/notfound/NotFound";
+import AdminControl from "./component/layout/Admin/AdminControl";
 const stripePromise = loadStripe(
   "pk_test_51NnNOvSFuTHP5molcpAQuWNXU5TOls5mRUcwxM2pMtCrzISqN1n5S2Cy8kl2iPKhgSXPui6zXZmdwJqPZZgsfTcn008bgRrpF3"
 );
@@ -116,6 +117,7 @@ function App() {
           <Route exact path="/admin/users" element={<AdminUsers />} />
           <Route exact path="/admin/user/:id" element={<UpdateUser />} />
           <Route exact path="/admin/reviews" element={<AdminReviews />} />
+          <Route exact path="/admin/controller" element={<AdminControl />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </ButtonState>

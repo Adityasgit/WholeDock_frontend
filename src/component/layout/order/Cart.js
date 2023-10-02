@@ -111,7 +111,9 @@ const Cart = () => {
                     </button>
                   </div>
                   <p className="cardSubTotal">{`₹${
-                    item.price[0] * item.quantity
+                    (user && user?.user?.role === "user"
+                      ? item.price[1]
+                      : item.price[0]) * item.quantity
                   }`}</p>
                 </div>
               ))}
@@ -129,7 +131,12 @@ const Cart = () => {
                 <div style={{ marginBottom: "0" }}>
                   <p>Gross Total</p>
                   <p>{`₹${cartItems.reduce(
-                    (acc, item) => acc + item.quantity * item.price[0],
+                    (acc, item) =>
+                      acc +
+                      item.quantity *
+                        (user && user?.user?.role === "user"
+                          ? item.price[1]
+                          : item.price[0]),
                     0
                   )}`}</p>
                 </div>
@@ -144,7 +151,12 @@ const Cart = () => {
                   <p>Delivery Charges</p>
                   <p>{`+${
                     cartItems.reduce(
-                      (acc, item) => acc + item.quantity * item.price[0],
+                      (acc, item) =>
+                        acc +
+                        item.quantity *
+                          (user && user?.user?.role === "user"
+                            ? item.price[1]
+                            : item.price[0]),
                       0
                     ) > 500
                       ? 10
@@ -155,11 +167,21 @@ const Cart = () => {
                   <p>Payable Amount</p>
                   <p style={{ color: "red", fontWeight: "bold" }}>{`₹${
                     cartItems.reduce(
-                      (acc, item) => acc + item.quantity * item.price[0],
+                      (acc, item) =>
+                        acc +
+                        item.quantity *
+                          (user && user?.user?.role === "user"
+                            ? item.price[1]
+                            : item.price[0]),
                       0
                     ) +
                     (cartItems.reduce(
-                      (acc, item) => acc + item.quantity * item.price[0],
+                      (acc, item) =>
+                        acc +
+                        item.quantity *
+                          (user && user?.user?.role === "user"
+                            ? item.price[1]
+                            : item.price[0]),
                       0
                     ) > 500
                       ? 10

@@ -25,6 +25,7 @@ import {
   userDetailsReducer,
   otpReducer,
 } from "./reducers/userReducer";
+import { controlReducer } from "./reducers/AdminReducer";
 import { cartReducer } from "./reducers/cartReducer";
 import {
   OrdersReducer,
@@ -55,6 +56,7 @@ const reducer = combineReducers({
   productReviews: allReviewsReducer,
   reviews: reviewsReducer,
   otp: otpReducer,
+  controller: controlReducer,
 });
 
 // Configure redux-persist
