@@ -20,6 +20,13 @@ const AdminDash = () => {
     dispatch(getAllOrders());
     dispatch(getAllUsers());
   }, [dispatch]);
+  let totalamount = 0;
+
+  orders &&
+    orders.forEach((item) => {
+      totalamount += item.totalPrice;
+    });
+
   products &&
     products.forEach((item) => {
       if (item.stock < 0) {
@@ -45,7 +52,7 @@ const AdminDash = () => {
         label: `TOTAL AMOUNT`,
         backgroundColor: [`dardred`],
         hoverBackgroundColor: [`red`],
-        data: [0, 4000],
+        data: [0, totalamount], 
       },
     ],
   };
@@ -82,7 +89,7 @@ const AdminDash = () => {
             <div className="dashSummary">
               <div>
                 <p>
-                  Total Amount <br /> ₹12000
+                  Total Amount <br /> ₹{totalamount}
                 </p>
               </div>
             </div>

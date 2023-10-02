@@ -36,6 +36,9 @@ import {
   DELETE_USER_FAIL,
   DELETE_USER_REQUEST,
   DELETE_USER_SUCCESS,
+  SEND_OTP_REQUEST,
+  SEND_OTP_SUCCESS,
+  SEND_OTP_FAIL,
 } from "../constants/userConstants";
 import axios from "axios";
 // login
@@ -217,4 +220,20 @@ export const deleteUser = (id) => async (dispatch) => {
 
 export const saveShippingInfo = (data) => async (dispatch) => {
   dispatch({ type: SAVE_SHIPPING_INFO, payload: data });
+};
+
+// delete user
+export const sendOTP = (email) => async (dispatch) => {
+  try {
+    const config = { headers: { "Content-Type": "application/json" } };
+
+    dispatch({ type: SEND_OTP_REQUEST });
+    const { data } = await axios.post(`/api/v1/send/otp`, email, config);
+    dispatch({ type: SEND_OTP_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: SEND_OTP_FAIL,
+      payload: error.response.data.message,
+    });
+  }
 };

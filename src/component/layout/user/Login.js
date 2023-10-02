@@ -1,25 +1,37 @@
 import React, { useEffect, useState } from "react";
 import "../user/login.css";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import loginimg from "../../../images/login.png";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
 import LockIcon from "@mui/icons-material/Lock";
 import FaceIcon from "@mui/icons-material/Face";
+import { Close, Code, Done } from "@mui/icons-material";
 import Loader from "../utils/Loader";
 import profilePng from "../../../images/profilepng.png";
 import { useDispatch, useSelector } from "react-redux";
-import { login, clearErrors, register } from "../../../actions/userAction";
-import { render } from "react-dom";
+import {
+  login,
+  clearErrors,
+  register,
+  sendOTP,
+} from "../../../actions/userAction";
+import { SEND_OTP_RESET } from "../../../constants/userConstants";
 
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const [fillpass, setFillpass] = useState(false);
   // State variables
   const { loading, error, isAuthenticated } = useSelector(
     (state) => state.user
   );
+  const {
+    loading: otpLoading,
+    isSent,
+    error: optError,
+    code,
+  } = useSelector((state) => state.otp);
   const [tab, setTab] = useState("login");
   const [img, setImg] = useState(false);
   const [text, setText] = useState(false);
@@ -31,8 +43,10 @@ const Login = () => {
     name: "",
     email: "",
     password: "",
+    cpassword: "",
   });
   const [avatar, setAvatar] = useState(profilePng);
+  const [otp, setOtp] = useState("");
   const [avatarPreview, setAvatarPreview] = useState(profilePng);
   const { name, email, password } = user;
 
@@ -49,6 +63,11 @@ const Login = () => {
   // Function to handle sign up form submission
   const signUpSubmit = (e) => {
     e.preventDefault();
+    if (Number(otp) !== code) {
+      alert("Incorrect OTP");
+      setOtp("");
+      return;
+    }
     const Myform = new FormData();
     Myform.append("name", name);
     Myform.append("email", email);
@@ -56,7 +75,6 @@ const Login = () => {
     Myform.append("avatar", avatar);
     dispatch(register(Myform));
   };
-
   // Function to handle avatar file change
   async function handleAvatarChange(e) {
     if (e?.target?.name === "avatar") {
@@ -84,6 +102,11 @@ const Login = () => {
   const registerDataChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
+  const fillpassHandler = (e) => {
+    e.preventDefault();
+    setFillpass(true);
+    dispatch(sendOTP({ email: user.email }));
+  };
 
   // Redirect path after successful login/signup
   const redirect = "/account";
@@ -99,16 +122,27 @@ const Login = () => {
         name: "",
         email: "",
         password: "",
+        cpassword: "",
       });
       setAvatar(profilePng);
       setAvatarPreview(profilePng);
+    }
+    if (optError) {
+      alert(error);
+      dispatch(clearErrors());
+      setFillpass(false);
+    }
+    if (isSent) {
+      alert(`OTP sent succesfully to ${user.email}`);
+      console.log(code);
+      dispatch({ type: SEND_OTP_RESET });
     }
 
     // Redirect to account page after successful login
     if (isAuthenticated === true) {
       navigate(redirect);
     }
-  }, [dispatch, error, isAuthenticated, navigate, redirect]);
+  }, [dispatch, error, isAuthenticated, navigate, redirect, isSent, optError]);
 
   useEffect(() => {
     // Delayed animations
@@ -259,6 +293,7 @@ const Login = () => {
                       onChange={(e) => setLoginemail(e.target.value)}
                     />
                   </div>
+
                   <div className="loginpassword">
                     {loginpassword === "" ? (
                       <LockOpenIcon />
@@ -312,74 +347,130 @@ const Login = () => {
                 }
               >
                 <form
-                  onSubmit={signUpSubmit}
+                  onSubmit={fillpass ? signUpSubmit : fillpassHandler}
                   className="signupform"
                   encType="multipart/form-data"
                 >
-                  <div className="registername">
-                    <FaceIcon />
-                    <input
-                      placeholder="Name"
-                      type="text"
-                      name="name"
-                      id="registername"
-                      value={name}
-                      onChange={registerDataChange}
-                    />
-                  </div>
-                  <div className="registeremail">
-                    <MailOutlineIcon />
-                    <input
-                      placeholder="Email"
-                      type="email"
-                      name="email"
-                      required
-                      id="registeremail"
-                      value={email}
-                      onChange={registerDataChange}
-                    />
-                  </div>
-                  <div className="registerpass">
-                    {user.password === "" ? (
-                      <LockOpenIcon />
-                    ) : (
-                      <LockIcon
-                        style={
-                          blink
-                            ? {
-                                animation: "pop 0.2s ease-in-out",
-                              }
-                            : {}
-                        }
-                      />
-                    )}
-                    <input
-                      placeholder="Password"
-                      type="password"
-                      name="password"
-                      required
-                      id="registerpassword"
-                      value={user.password}
-                      onChange={(e) => {
-                        registerDataChange(e);
-                        setBlink(true);
-                        setTimeout(() => {
-                          setBlink(false);
-                        }, 200);
-                      }}
-                    />
-                  </div>
-                  <div className="registerImage">
-                    <img src={avatarPreview} alt="Default" />
-                    <input
-                      type="file"
-                      name="avatar"
-                      id="avatar"
-                      accept="image/*"
-                      onChange={handleAvatarChange}
-                    />
-                  </div>
-                  <input type="submit" value="Sign Up" class="button-30" />
+                  {!fillpass && (
+                    <>
+                      <div className="registername">
+                        <FaceIcon />
+                        <input
+                          placeholder="Name"
+                          type="text"
+                          name="name"
+                          id="registername"
+                          value={name}
+                          onChange={registerDataChange}
+                        />
+                      </div>
+                      <div className="registeremail">
+                        <MailOutlineIcon />
+                        <input
+                          placeholder="Email"
+                          type="email"
+                          name="email"
+                          required
+                          id="registeremail"
+                          value={email}
+                          onChange={registerDataChange}
+                        />
+                      </div>
+
+                      <div className="registerImage">
+                        <img src={avatarPreview} alt="Default" />
+                        <input
+                          type="file"
+                          name="avatar"
+                          id="avatar"
+                          accept="image/*"
+                          onChange={handleAvatarChange}
+                        />
+                      </div>
+                    </>
+                  )}
+                  {fillpass && (
+                    <>
+                      <div className="registerpass">
+                        <Code />
+                        <input
+                          placeholder="Enter OTP"
+                          type="text"
+                          name="otp"
+                          required
+                          id="registerpassword"
+                          value={otp}
+                          onChange={(e) => {
+                            setOtp(e.target.value);
+                          }}
+                        />
+                      </div>
+                      <div className="registerpass">
+                        {user.password === "" ? (
+                          <LockOpenIcon />
+                        ) : (
+                          <LockIcon
+                            style={
+                              blink
+                                ? {
+                                    animation: "pop 0.2s ease-in-out",
+                                  }
+                                : {}
+                            }
+                          />
+                        )}
+                        <input
+                          placeholder="Password"
+                          type="password"
+                          name="password"
+                          required
+                          id="registerpassword"
+                          value={user.password}
+                          onChange={(e) => {
+                            registerDataChange(e);
+                            setBlink(true);
+                            setTimeout(() => {
+                              setBlink(false);
+                            }, 200);
+                          }}
+                        />
+                      </div>
+                      <div className="registerpass">
+                        {user.cpassword === user.password &&
+                        user.cpassword !== "" ? (
+                          <Done />
+                        ) : (
+                          <Close />
+                        )}
+                        <input
+                          placeholder="Confirm Password"
+                          type="password"
+                          name="cpassword"
+                          required
+                          id="registerpassword"
+                          value={user.cpassword}
+                          onChange={(e) => {
+                            registerDataChange(e);
+                          }}
+                        />
+                      </div>
+                    </>
+                  )}
+                  <input
+                    type="submit"
+                    disabled={
+                      (fillpass
+                        ? user.password && user.cpassword
+                          ? false
+                          : true
+                        : avatar && user.email && user.name
+                        ? false
+                        : true) &&
+                      (user.password === user.cpassword ? false : true)
+                    }
+                    value={fillpass ? "Sign Up" : "Next"}
+                    class="button-30"
+                  />
                 </form>
               </div>
             </div>

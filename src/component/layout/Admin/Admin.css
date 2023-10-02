@@ -145,3 +145,23 @@
 #imagefileinput > input::file-selector-button {
   width: 10vmax;
 }
+.reviewlist {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  justify-items: center;
+  text-align: center;
+}
+.adminreviewform > div > div {
+  /* display: flex; */
+}
+.adminreviewform input {
+  padding: 1vmax 4vmax;
+  margin: 2vmax;
+  padding-right: 1vmax;
+}
+.adminreviewform svg {
+  position: absolute;
+  transform: translate(3vmax, 2.7vmax);
+}

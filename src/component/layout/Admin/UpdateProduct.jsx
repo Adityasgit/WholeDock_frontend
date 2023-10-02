@@ -60,7 +60,7 @@ const UpdateProduct = () => {
     isUpdated,
   } = useSelector((state) => state.product);
   useEffect(() => {
-    if (isAuthenticated === false) {
+    if (isAuthenticated && isAuthenticated === false) {
       navigate("/login");
     }
     if (product && product._id !== productId) {
@@ -80,7 +80,7 @@ const UpdateProduct = () => {
       setCategory(product.category);
       setOldImages(product.images);
     }
-    if (user?.user?.role !== "admin") {
+    if (user && user?.user?.role !== "admin") {
       navigate("/");
     }
   }, [navigate, dispatch, isAuthenticated, user, product, productId]);

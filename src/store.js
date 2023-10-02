@@ -8,11 +8,13 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import {
+  allReviewsReducer,
   newProductReducer,
   newReviewReducer,
   productDetailsReducer,
   productReducer,
   productsReducer,
+  reviewsReducer,
 } from "./reducers/productReducer";
 import {
   forgotPasswordReducer,
@@ -21,6 +23,7 @@ import {
   usersReducer,
   userReducer,
   userDetailsReducer,
+  otpReducer,
 } from "./reducers/userReducer";
 import { cartReducer } from "./reducers/cartReducer";
 import {
@@ -49,6 +52,9 @@ const reducer = combineReducers({
   allUsers: allUsersReducer,
   users: usersReducer,
   userDetails: userDetailsReducer,
+  productReviews: allReviewsReducer,
+  reviews: reviewsReducer,
+  otp: otpReducer,
 });
 
 // Configure redux-persist

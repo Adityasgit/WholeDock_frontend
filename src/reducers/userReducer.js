@@ -39,6 +39,10 @@ import {
   DELETE_USER_REQUEST,
   DELETE_USER_RESET,
   DELETE_USER_SUCCESS,
+  SEND_OTP_REQUEST,
+  SEND_OTP_SUCCESS,
+  SEND_OTP_FAIL,
+  SEND_OTP_RESET,
 } from "../constants/userConstants";
 
 export const userReducer = (state = { user: [] }, action) => {
@@ -260,6 +264,7 @@ export const usersReducer = (state = {}, action) => {
       return {
         ...state,
         error: null,
+        loading: false,
       };
 
     default:
@@ -281,6 +286,44 @@ export const userDetailsReducer = (state = { user: {} }, action) => {
         user: action.payload,
       };
     case USER_DETAILS_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+
+    default:
+      return state;
+  }
+};
+// send otp for registration
+export const otpReducer = (state = {}, action) => {
+  switch (action.type) {
+    case SEND_OTP_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case SEND_OTP_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        isSent: action.payload.success,
+        code: action.payload.code,
+      };
+    case SEND_OTP_RESET:
+      return {
+        ...state,
+        loading: false,
+        isSent: false,
+      };
+    case SEND_OTP_FAIL:
       return {
         ...state,
         loading: false,

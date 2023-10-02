@@ -29,6 +29,8 @@ import UpdateProduct from "./component/layout/Admin/UpdateProduct.jsx";
 import UpdateOrder from "./component/layout/Admin/UpdateOrder.jsx";
 import AdminOrders from "./component/layout/Admin/AdminOrders.jsx";
 import AdminUsers from "./component/layout/Admin/AdminUsers.jsx";
+import UpdateUser from "./component/layout/Admin/UpdateUser.jsx";
+import AdminReviews from "./component/layout/Admin/AdminReviews.jsx";
 
 // import axios from "axios";
 import { store } from "./store";
@@ -38,6 +40,7 @@ import Loader from "./component/layout/utils/Loader";
 import AdminDash from "./component/layout/Admin/AdminDash";
 import { loadUser } from "./actions/userAction";
 import Newproduct from "./component/layout/Admin/Newproduct";
+import NotFound from "./component/notfound/NotFound";
 const stripePromise = loadStripe(
   "pk_test_51NnNOvSFuTHP5molcpAQuWNXU5TOls5mRUcwxM2pMtCrzISqN1n5S2Cy8kl2iPKhgSXPui6zXZmdwJqPZZgsfTcn008bgRrpF3"
 );
@@ -111,6 +114,9 @@ function App() {
           <Route exact path="/admin/orders" element={<AdminOrders />} />
           <Route exact path="/admin/order/:id" element={<UpdateOrder />} />
           <Route exact path="/admin/users" element={<AdminUsers />} />
+          <Route exact path="/admin/user/:id" element={<UpdateUser />} />
+          <Route exact path="/admin/reviews" element={<AdminReviews />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </ButtonState>
     </Router>
