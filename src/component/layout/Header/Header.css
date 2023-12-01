@@ -90,7 +90,7 @@
   }
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 800px) {
   .banner::after {
     clip-path: polygon(
       55% 0,
@@ -195,7 +195,7 @@
   width: calc(initial+5px);
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 800px) {
   #navbar {
     flex-direction: column;
     min-height: 100vh;
@@ -261,7 +261,6 @@
   }
 }
 .burger {
-  margin: 1vmax;
   position: fixed;
 }
 .burger button {
@@ -302,6 +301,25 @@
   background-color: white;
   border: 1px ridge silver;
   border-top: none;
+}
+@media screen and (max-width: 800px) {
+  .searchopen,
+  .accountopen {
+    top: 0 !important;
+    left: 25vw;
+    padding: 1vmax 4vmax;
+    position: absolute;
+  }
+  .search,
+  .account {
+    top: 9vmax !important;
+    left: 20vw !important;
+    position: absolute;
+    border-bottom-right-radius: 0;
+  }
+  .accountopen {
+    left: 55vw;
+  }
 }
 .search {
   overflow: hidden;

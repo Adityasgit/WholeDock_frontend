@@ -1,6 +1,5 @@
 import ButtonContext from "./ButtonContext";
 import { useState } from "react";
-
 const ButtonState = (props) => {
   const [burger, setburger] = useState(true);
   const setBurger = () => {
@@ -35,6 +34,7 @@ const ButtonState = (props) => {
   const setAccount = () => {
     setaccount(!account);
   };
+
   return (
     <ButtonContext.Provider
       value={{

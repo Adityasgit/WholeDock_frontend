@@ -3,11 +3,11 @@ import Navbar from "../Header/Navbar";
 import { GiHamburgerMenu } from "react-icons/gi";
 import ButtonContext from "../../../context/ButtonContext";
 const Header = (props) => {
-  let screenSize = window.screen.width;
+  let screenSize = window.innerWidth;
   const btncontext = useContext(ButtonContext);
   return (
     <Fragment>
-      {screenSize < 480 && (
+      {screenSize <= 800 ? (
         <>
           <div
             className="burger"
@@ -23,13 +23,18 @@ const Header = (props) => {
                 btncontext.setBurger();
               }}
             >
-              <GiHamburgerMenu />
+              <GiHamburgerMenu
+                style={
+                  !btncontext.burger ? { color: "black" } : { color: "white" }
+                }
+              />
             </button>
           </div>
           <Navbar BrandName={props.BrandName} />
         </>
+      ) : (
+        screenSize > 800 && <Navbar BrandName={props.BrandName} />
       )}
-      {screenSize > 480 && <Navbar BrandName={props.BrandName} />}
     </Fragment>
   );
 };

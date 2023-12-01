@@ -12,6 +12,7 @@ import LoginTwoToneIcon from "@mui/icons-material/LoginTwoTone";
 const Navbar = (props) => {
   const { isAuthenticated } = useSelector((state) => state.user);
   // State and Context
+  const { org } = useSelector((state) => state.controller);
   const navigate = useNavigate();
   const {
     burger,
@@ -71,7 +72,7 @@ const Navbar = (props) => {
               >
                 {props.BrandName}
                 <p style={{ letterSpacing: "0px", fontSize: "1.5vmax" }}>
-                  GEN STORE
+                  {org.lName}
                 </p>
               </div>
             </div>
@@ -80,7 +81,7 @@ const Navbar = (props) => {
               <Link style={{ textDecoration: "none", color: "white" }} to="/">
                 <div
                   className="items"
-                  onClick={() => window.innerWidth <= 480 && setBurger(false)}
+                  onClick={() => window.innerWidth <= 800 && setBurger(false)}
                 >
                   Home
                   <p style={{ display: "block" }}>
@@ -94,7 +95,7 @@ const Navbar = (props) => {
               >
                 <div
                   className="items"
-                  onClick={() => window.innerWidth <= 480 && setBurger(false)}
+                  onClick={() => window.innerWidth <= 800 && setBurger(false)}
                 >
                   Products
                   <p style={{ display: "block" }}>
@@ -106,7 +107,10 @@ const Navbar = (props) => {
                 style={{ textDecoration: "none", color: "white" }}
                 to="/coupons"
               >
-                <div className="items">
+                <div
+                  className="items"
+                  onClick={() => window.innerWidth <= 800 && setBurger(false)}
+                >
                   Coupons
                   <p style={{ display: "block" }}>
                     <RiCoupon2Fill />
@@ -114,7 +118,10 @@ const Navbar = (props) => {
                 </div>
               </Link>
               <Link style={{ textDecoration: "none", color: "white" }} to="/">
-                <div className="items">
+                <div
+                  className="items"
+                  onClick={() => window.innerWidth <= 800 && setBurger(false)}
+                >
                   About
                   <p style={{ display: "block" }}>
                     <FcAbout />
@@ -200,11 +207,12 @@ const Navbar = (props) => {
       {account && <div className="account">i am account</div>}
 
       {/* Search icon for desktop view */}
-      {window.innerWidth > 600 && (
+      {
         <div
           className="searchopen"
           style={!search ? { top: "6vmax" } : { top: "11vmax" }}
           onClick={() => {
+            if (account) setAccount();
             setSearch();
             if (!search) setSort({ val: false });
             if (!search) setAllproducts([]);
@@ -213,20 +221,21 @@ const Navbar = (props) => {
         >
           {!search ? <FaSearch /> : <FaRegWindowClose />}
         </div>
-      )}
+      }
 
       {/* Account icon for desktop view */}
-      {window.innerWidth > 600 && (
+      {
         <div
           className="accountopen"
           style={!account ? { top: "6vmax" } : { top: "11vmax" }}
           onClick={() => {
+            if (search) setSearch();
             setAccount();
           }}
         >
           {!account ? <FaUser /> : <FaRegWindowClose />}
         </div>
-      )}
+      }
     </Fragment>
   );
 };

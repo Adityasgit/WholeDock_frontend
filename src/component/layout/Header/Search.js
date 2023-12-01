@@ -31,6 +31,8 @@ const Search = () => {
             border: "none",
             boxShadow: "0 0 0.6px black",
             paddingLeft: "1vmin",
+            padding: "1vmax",
+            font: "300 1vmax cursive",
           }}
         />
         <input

@@ -71,7 +71,7 @@
   width: fit-content;
   color: rgb(48, 48, 48);
 }
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 800px) {
   .product-container {
     margin: 0 auto;
     width: 100vw;

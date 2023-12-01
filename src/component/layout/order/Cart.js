@@ -9,6 +9,7 @@ const Cart = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { isAuthenticated, user } = useSelector((state) => state.user);
+  const { delivery } = useSelector((state) => state.controller);
   useEffect(() => {
     if (!isAuthenticated) {
       navigate("/login");
@@ -159,8 +160,8 @@ const Cart = () => {
                             : item.price[0]),
                       0
                     ) > 500
-                      ? 10
-                      : 18
+                      ? delivery[0]
+                      : delivery[1]
                   }`}</p>
                 </div>
                 <div style={{ borderTop: "1px ridge black" }}>
@@ -184,8 +185,8 @@ const Cart = () => {
                             : item.price[0]),
                       0
                     ) > 500
-                      ? 10
-                      : 18)
+                      ? delivery[0]
+                      : delivery[1])
                   }`}</p>
                 </div>
               </div>

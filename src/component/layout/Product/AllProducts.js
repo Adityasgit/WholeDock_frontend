@@ -10,7 +10,13 @@ import ButtonContext from "../../../context/ButtonContext";
 import { useParams } from "react-router-dom";
 import Slider from "@mui/material-next/Slider";
 import { Typography } from "@mui/material";
-import { FaStar, FaRegStar } from "react-icons/fa";
+import {
+  FaStar,
+  FaRegStar,
+  FaArrowDown,
+  FaArrowCircleUp,
+  FaArrowUp,
+} from "react-icons/fa";
 // Define star icons for ratings
 
 // Function to display the value for Slider component
@@ -116,10 +122,14 @@ const AllProducts = () => {
     }
     clear();
   };
+  useEffect(() => {
+    window.innerWidth > 800 && setFilter(true);
+  }, []);
 
   // Hooks
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [filter, setFilter] = useState(false);
   const params = useParams();
 
   // Select data from Redux store
@@ -210,257 +220,277 @@ const AllProducts = () => {
       {/* Main Content */}
       <div className="allp">
         {/* Filter bar */}
-        <div className="filterbar">
+        <div className="filterbar" style={{ transition: "all 0.5s" }}>
           {/* Price filter */}
           <div
             style={{
               margin: "2vmax",
               fontSize: "2.2vmax",
               color: "rgba(0,0,0,0.700)",
+              transition: "all 0.5s",
+            }}
+            onClick={() => {
+              if (window.innerWidth < 800) {
+                setFilter(!filter);
+              }
             }}
           >
-            Filters
-          </div>
-          <div
-            className="pricefilter"
-            style={{ borderBottom: "1px solid grey" }}
-          >
-            <Typography>Max Retail Price</Typography>
-            <Slider
-              getAriaLabel={() => "Minimum distance"}
-              value={value}
-              onChange={handleChange}
-              valueLabelDisplay="auto"
-              getAriaValueText={valuetext}
-              min={0}
-              max={1000}
-              disableSwap
-            />
-            {/* Price range display */}
-            <div
-              className="pricenum"
-              style={{ textAlign: "center", marginBottom: "1vmax" }}
-            >
-              <input
-                type="number"
-                name="from"
-                id="pnum_from"
-                value={value[0]}
-                disabled={true}
-                style={{
-                  width: "5vmax",
-                  textAlign: "center",
-                  marginRight: "1vmax",
-                }}
-              />
-              {"  "}
-              to{"  "}
-              <input
-                type="number"
-                name="to"
-                id="pnum_to"
-                value={value[1]}
-                disabled={true}
-                style={{
-                  width: "5vmax",
-                  textAlign: "center",
-                  marginLeft: "1vmax",
-                }}
-              />
-            </div>
+            Filters{" "}
+            {window.innerWidth < 800 && (
+              <span>{!filter ? <FaArrowDown /> : <FaArrowUp />}</span>
+            )}
           </div>
 
-          {/* Category filter */}
-          <div className="category container">
-            <div
-              style={{
-                padding: "auto",
-                fontSize: "1.5vmax",
-                color: "#6750a4",
-                marginBottom: "1vmax",
-              }}
-            >
-              Categories{" "}
-              {category !== "" && !sort.sort.val && (
+          {filter && (
+            <>
+              <div
+                className="pricefilter"
+                style={{ borderBottom: "1px solid grey" }}
+              >
+                <Typography>Max Retail Price</Typography>
+                <Slider
+                  getAriaLabel={() => "Minimum distance"}
+                  value={value}
+                  onChange={handleChange}
+                  valueLabelDisplay="auto"
+                  getAriaValueText={valuetext}
+                  min={0}
+                  max={1000}
+                  disableSwap
+                />
+                {/* Price range display */}
+                <div
+                  className="pricenum"
+                  style={{ textAlign: "center", marginBottom: "1vmax" }}
+                >
+                  <input
+                    type="number"
+                    name="from"
+                    id="pnum_from"
+                    value={value[0]}
+                    disabled={true}
+                    style={{
+                      width: "5vmax",
+                      textAlign: "center",
+                      marginRight: "1vmax",
+                    }}
+                  />
+                  {"  "}
+                  to{"  "}
+                  <input
+                    type="number"
+                    name="to"
+                    id="pnum_to"
+                    value={value[1]}
+                    disabled={true}
+                    style={{
+                      width: "5vmax",
+                      textAlign: "center",
+                      marginLeft: "1vmax",
+                    }}
+                  />
+                </div>
+              </div>
+
+              {/* Category filter */}
+              <div className="category container">
+                <div
+                  style={{
+                    padding: "auto",
+                    fontSize: "1.5vmax",
+                    color: "#6750a4",
+                    marginBottom: "1vmax",
+                  }}
+                >
+                  Categories{" "}
+                  {category !== "" && !sort.sort.val && (
+                    <span
+                      style={{
+                        cursor: "pointer",
+                        color: "red",
+                        marginLeft: "3vmin",
+                        fontSize: "1.3vmax",
+                      }}
+                      onClick={() => {
+                        setCategory("");
+                        clear();
+                      }}
+                    >
+                      Clear
+                    </span>
+                  )}
+                </div>
+                <div className="categories">
+                  {categoryOptions.map((option) => (
+                    <div
+                      key={option.value}
+                      onClick={() => {
+                        setCategory(option.value);
+                        clear();
+                      }}
+                      style={
+                        category === option.value ? { color: "purple" } : {}
+                      }
+                    >
+                      {category === option.value && <span>{rightArrow}</span>}{" "}
+                      {option.label}
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Gender filter */}
+              <div
+                className="gender container"
+                style={{
+                  padding: "auto",
+                  fontSize: "1.5vmax",
+                  color: "#6750a4",
+                  marginBottom: "1vmax",
+                }}
+              >
+                Gender
+                {gender !== "" && !sort.sort.val && (
+                  <span
+                    style={{
+                      cursor: "pointer",
+                      color: "red",
+                      marginLeft: "3vmin",
+                      fontSize: "1.3vmax",
+                    }}
+                    onClick={() => {
+                      setGender("");
+                      clear();
+                    }}
+                  >
+                    Clear
+                  </span>
+                )}
+                {genderOptions.map((option) => (
+                  <div
+                    key={option.value}
+                    onClick={() => {
+                      setGender(option.value);
+                      clear();
+                    }}
+                    style={gender === option.value ? { color: "purple" } : {}}
+                  >
+                    {gender === option.value && <span>{rightArrow}</span>}{" "}
+                    {option.label}
+                  </div>
+                ))}
+              </div>
+
+              {/* Company filter */}
+              <div className="company container">
                 <span
                   style={{
-                    cursor: "pointer",
-                    color: "red",
-                    marginLeft: "3vmin",
-                    fontSize: "1.3vmax",
-                  }}
-                  onClick={() => {
-                    setCategory("");
-                    clear();
+                    padding: "auto",
+                    fontSize: "1.5vmax",
+                    color: "#6750a4",
+                    marginBottom: "1vmax",
                   }}
                 >
-                  Clear
-                </span>
-              )}
-            </div>
-            <div className="categories">
-              {categoryOptions.map((option) => (
-                <div
-                  key={option.value}
-                  onClick={() => {
-                    setCategory(option.value);
-                    clear();
-                  }}
-                  style={category === option.value ? { color: "purple" } : {}}
-                >
-                  {category === option.value && <span>{rightArrow}</span>}{" "}
-                  {option.label}
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Gender filter */}
-          <div
-            className="gender container"
-            style={{
-              padding: "auto",
-              fontSize: "1.5vmax",
-              color: "#6750a4",
-              marginBottom: "1vmax",
-            }}
-          >
-            Gender
-            {gender !== "" && !sort.sort.val && (
-              <span
-                style={{
-                  cursor: "pointer",
-                  color: "red",
-                  marginLeft: "3vmin",
-                  fontSize: "1.3vmax",
-                }}
-                onClick={() => {
-                  setGender("");
-                  clear();
-                }}
-              >
-                Clear
-              </span>
-            )}
-            {genderOptions.map((option) => (
-              <div
-                key={option.value}
-                onClick={() => {
-                  setGender(option.value);
-                  clear();
-                }}
-                style={gender === option.value ? { color: "purple" } : {}}
-              >
-                {gender === option.value && <span>{rightArrow}</span>}{" "}
-                {option.label}
+                  Companies
+                </span>{" "}
+                {company !== "" && !sort.sort.val && (
+                  <span
+                    style={{
+                      cursor: "pointer",
+                      color: "red",
+                      marginLeft: "3vmin",
+                      fontSize: "1.3vmax",
+                    }}
+                    onClick={() => {
+                      setCompany("");
+                      clear();
+                    }}
+                  >
+                    Clear
+                  </span>
+                )}
+                {companies.map((com) => {
+                  return (
+                    <div
+                      key={com}
+                      onClick={() => {
+                        setCompany(com);
+                        clear();
+                      }}
+                      style={company === com ? { color: "purple" } : {}}
+                    >
+                      {company === com ? rightArrow : ""}
+                      {com}
+                    </div>
+                  );
+                })}
               </div>
-            ))}
-          </div>
 
-          {/* Company filter */}
-          <div className="company container">
-            <span
-              style={{
-                padding: "auto",
-                fontSize: "1.5vmax",
-                color: "#6750a4",
-                marginBottom: "1vmax",
-              }}
-            >
-              Companies
-            </span>{" "}
-            {company !== "" && !sort.sort.val && (
-              <span
-                style={{
-                  cursor: "pointer",
-                  color: "red",
-                  marginLeft: "3vmin",
-                  fontSize: "1.3vmax",
-                }}
-                onClick={() => {
-                  setCompany("");
-                  clear();
-                }}
-              >
-                Clear
-              </span>
-            )}
-            {companies.map((com) => {
-              return (
-                <div
-                  key={com}
-                  onClick={() => {
-                    setCompany(com);
-                    clear();
-                  }}
-                  style={company === com ? { color: "purple" } : {}}
-                >
-                  {company === com ? rightArrow : ""}
-                  {com}
-                </div>
-              );
-            })}
-          </div>
-
-          {/* Rating filter */}
-          <div className="ratingfilter container">
-            CUSTOMER RATINGS
-            {/* Radio buttons for rating filter */}
-            <div style={{ position: "relative" }}>
-              <input
-                type="radio"
-                name="ratings"
-                id="false"
-                onClick={(e) => {
-                  setRating(0);
-                  clear();
-                }}
-                style={{ display: "none" }}
-              />
-              {!sort.sort.val && rating !== 0 && (
-                <label
-                  htmlFor="false"
-                  style={{
-                    position: "absolute",
-                    top: "-2vmax",
-                    right: "-0.6vmax",
-                    color: "red",
-                  }}
-                >
-                  Clear
-                </label>
-              )}
-              {ratingOptions.map((option) => (
-                <div key={option.value}>
+              {/* Rating filter */}
+              <div className="ratingfilter container">
+                CUSTOMER RATINGS
+                {/* Radio buttons for rating filter */}
+                <div style={{ position: "relative" }}>
                   <input
                     type="radio"
                     name="ratings"
-                    id={option.value.toString()}
-                    value={option.value}
+                    id="false"
                     onClick={(e) => {
-                      setRating(e.target.value);
+                      setRating(0);
                       clear();
                     }}
-                    style={radioStyle}
+                    style={{ display: "none" }}
                   />
-                  <label
-                    htmlFor={option.value.toString()}
-                    style={rating === option.value ? { color: "purple" } : {}}
-                  >
-                    <span
-                      style={
-                        rating === option.value
-                          ? { ...customRadioStyle, borderColor: "purple" }
-                          : customRadioStyle
-                      }
-                      className={rating === option.value ? "purple-radio" : ""}
-                    ></span>
-                    {option.label}
-                  </label>
+                  {!sort.sort.val && rating !== 0 && (
+                    <label
+                      htmlFor="false"
+                      style={{
+                        position: "absolute",
+                        top: "-2vmax",
+                        right: "-0.6vmax",
+                        color: "red",
+                      }}
+                    >
+                      Clear
+                    </label>
+                  )}
+                  {ratingOptions.map((option) => (
+                    <div key={option.value}>
+                      <input
+                        type="radio"
+                        name="ratings"
+                        id={option.value.toString()}
+                        value={option.value}
+                        onClick={(e) => {
+                          setRating(e.target.value);
+                          clear();
+                        }}
+                        style={radioStyle}
+                      />
+                      <label
+                        htmlFor={option.value.toString()}
+                        style={
+                          rating === option.value ? { color: "purple" } : {}
+                        }
+                      >
+                        <span
+                          style={
+                            rating === option.value
+                              ? { ...customRadioStyle, borderColor: "purple" }
+                              : customRadioStyle
+                          }
+                          className={
+                            rating === option.value ? "purple-radio" : ""
+                          }
+                        ></span>
+                        {option.label}
+                      </label>
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
-          </div>
+              </div>
+            </>
+          )}
         </div>
 
         {/* Main content */}

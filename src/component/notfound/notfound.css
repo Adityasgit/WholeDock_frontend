@@ -28,7 +28,7 @@
   margin: 2vmax;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 800px) {
   .PageNotFound > a {
     padding: 3vw 6vw;
     font: 400 4vw "Roboto";

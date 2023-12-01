@@ -6,6 +6,9 @@ import { Typography } from "@mui/material";
 import "./order.css";
 const ConfirmOrder = () => {
   const { isAuthenticated, user } = useSelector((state) => state.user);
+  const { delivery } = useSelector((state) => state.controller);
+  const [first, sec] = delivery;
+
   const { cart } = useSelector((state) => state);
   const userId = user?.user?._id;
   const { shippingInfo } = cart;
@@ -23,10 +26,10 @@ const ConfirmOrder = () => {
         item.quantity,
     0
   );
-  const shippingCharges = subTotal > 500 ? 10 : 18;
+  let shippingCharges = subTotal > 500 ? first : sec;
   const gst = 0;
 
-  const total = shippingCharges + subTotal;
+  const total = (subTotal > 500 ? first : sec) + subTotal;
   const address = `${shippingInfo.address}, ${shippingInfo.city}, ${shippingInfo.state}, ${shippingInfo.pinCode}, India`;
   const navigate = useNavigate();
   useEffect(() => {
@@ -86,13 +89,11 @@ const ConfirmOrder = () => {
               </Typography>
               <div className="confirmcartitems">
                 {cartItems &&
+                  cartItems[0] &&
                   cartItems.map((item) => (
                     <div className="cscartitems" key={item.product}>
                       <div className="img">
-                        <img
-                          src="https://th.bing.com/th/id/OIP.obi3X73hahF9hBFIWf53nAHaJM?w=143&h=180&c=7&r=0&o=5&dpr=1.6&pid=1.7"
-                          alt={`name:${item.name}`}
-                        />
+                        <img src={item?.image} alt={`name:${item.name}`} />
                       </div>
                       <div className="csciitemds">
                         <Link

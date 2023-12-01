@@ -94,7 +94,7 @@ const MyOrders = () => {
               className="datagrid"
               style={{
                 width: "80%",
-                paddingTop: "8vmax",
+                paddingTop: "9.5vmax",
                 maxHeight: "80%",
                 backgroundColor: "white",
               }}

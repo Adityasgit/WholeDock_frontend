@@ -249,7 +249,7 @@ button {
   padding: 0.3vmax;
   color: rgb(107, 106, 106);
 }
-@media screen and (minwidth: 480px) {
+@media screen and (max-width: 800px) {
   .loginsignup {
     flex-direction: column;
   }

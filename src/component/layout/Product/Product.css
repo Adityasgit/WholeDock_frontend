@@ -168,7 +168,7 @@ fieldset > h4 {
   font-weight: 300;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 800px) {
   .product-details {
     flex-direction: column;
     padding: 0;
@@ -253,6 +253,18 @@ fieldset > h4 {
   min-height: 100vh;
   background-color: #f1f3f6;
   justify-content: space-between;
+}
+@media screen and (max-width: 800px) {
+  .allp {
+    flex-direction: column;
+    width: 100vw;
+    background-color: white;
+  }
+  .filterbar {
+    flex-direction: column;
+    width: 100% !important;
+    margin-top: 9vmax !important;
+  }
 }
 .filterbar {
   display: flex;
